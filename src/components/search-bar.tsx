@@ -4,13 +4,14 @@ export default class SearchBar extends React.Component<Record<string, unknown>, 
   constructor(props: Record<string, unknown>) {
     super(props);
     this.state = {
-      value: '',
+      value: localStorage.getItem('value') || '',
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event: ChangeEvent<HTMLInputElement>) {
     this.setState({ value: event.target.value });
+    localStorage.setItem('value', event.target.value);
   }
 
   render() {
