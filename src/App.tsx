@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
+import SearchBar from './components/search-bar';
 
 function Home() {
   return (
@@ -8,6 +9,7 @@ function Home() {
       <header>
         <h1>Home</h1>
       </header>
+      <SearchBar />
       <nav>
         <Link to="/about-us">About Us</Link>
       </nav>
