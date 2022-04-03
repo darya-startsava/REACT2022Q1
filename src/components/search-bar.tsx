@@ -9,9 +9,12 @@ export default class SearchBar extends React.Component<Record<string, unknown>, 
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillUnmount() {
+    localStorage.setItem('value', this.state.value);
+  }
+
   handleChange(event: ChangeEvent<HTMLInputElement>) {
     this.setState({ value: event.target.value });
-    localStorage.setItem('value', event.target.value);
   }
 
   render() {
