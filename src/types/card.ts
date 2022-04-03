@@ -1,4 +1,5 @@
 type CardType = {
+  id: number;
   image: string;
   name: string;
   year: number;

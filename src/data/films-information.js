@@ -2,6 +2,7 @@ import CardType from '../types/card';
 
 export const filmsInformation: [CardType] = [
   {
+    id: 0,
     image: 'dune.jpg',
     name: 'Dune',
     year: 2021,
@@ -26,6 +27,7 @@ export const filmsInformation: [CardType] = [
   },
 
   {
+    id: 1,
     image: 'arrival.jpg',
     name: 'Arrival',
     year: 2016,
@@ -36,6 +38,7 @@ export const filmsInformation: [CardType] = [
   },
 
   {
+    id: 2,
     image: 'interstellar.jpg',
     name: 'Interstellar',
     year: 2014,
@@ -52,6 +55,7 @@ export const filmsInformation: [CardType] = [
     oscars: 1,
   },
   {
+    id: 3,
     image: 'inception.jpg',
     name: 'Inception',
     year: 2010,
