@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
+import CardList from './components/card-list';
 import SearchBar from './components/search-bar';
 
 function Home() {
@@ -10,6 +11,7 @@ function Home() {
         <h1>Home</h1>
       </header>
       <SearchBar />
+      <CardList />
       <nav>
         <Link to="/about-us">About Us</Link>
       </nav>
