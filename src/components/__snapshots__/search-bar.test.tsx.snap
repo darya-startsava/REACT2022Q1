@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search bar search bar value show value from local storage 1`] = `
+<div>
+  <label>
+    <input
+      placeholder="Search bar"
+      type="text"
+      value="test2"
+    />
+  </label>
+</div>
+`;
