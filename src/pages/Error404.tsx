@@ -1,6 +1,6 @@
 export default function Error404() {
   return (
-    <div>
+    <div data-testid="error-page">
       <header>
         <h1>404</h1>
       </header>

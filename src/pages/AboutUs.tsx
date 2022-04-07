@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom';
 
 export default function AboutUs() {
   return (
-    <div>
+    <div data-testid="about-us-page">
       <header>
         <nav>
-          <Link to="/">Home</Link>
+          <Link to="/" data-testid="home-link">
+            Home
+          </Link>
         </nav>
         <h1>About Us</h1>
       </header>

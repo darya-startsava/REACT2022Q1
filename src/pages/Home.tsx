@@ -4,10 +4,12 @@ import SearchBar from '../components/SearchBar';
 
 export default function Home() {
   return (
-    <div>
+    <div data-testid="home-page">
       <header>
         <nav>
-          <Link to="/about-us">About Us</Link>
+          <Link to="/about-us" data-testid="about-us-link">
+            About Us
+          </Link>
         </nav>
         <h1>Home</h1>
       </header>
