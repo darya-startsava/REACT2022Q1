@@ -1,6 +1,6 @@
 import CardType from '../types/card';
 
-export const filmsInformation: [CardType] = [
+const filmsInformation: [CardType] = [
   {
     id: 0,
     image: 'dune.jpg',
@@ -42,7 +42,7 @@ export const filmsInformation: [CardType] = [
     image: 'interstellar.jpg',
     name: 'Interstellar',
     year: 2014,
-    director: '	Christopher Nolan',
+    director: 'Christopher Nolan',
     actors: [
       'Matthew McConaughey',
       'Anne Hathaway',
@@ -59,7 +59,7 @@ export const filmsInformation: [CardType] = [
     image: 'inception.jpg',
     name: 'Inception',
     year: 2010,
-    director: '	Christopher Nolan',
+    director: 'Christopher Nolan',
     actors: [
       'Leonardo DiCaprio',
       'Ken Watanabe',
@@ -75,3 +75,5 @@ export const filmsInformation: [CardType] = [
     oscars: 4,
   },
 ];
+
+export default filmsInformation;

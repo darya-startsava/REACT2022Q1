@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card information about director 1`] = `
+<div>
+  <div>
+    <img
+      alt="poster"
+      height="auto"
+      src="posters/inception.jpg"
+      width="200"
+    />
+    <h5>
+      “
+      Inception
+      ”
+    </h5>
+    <p>
+      2010
+       year
+    </p>
+    <p>
+      Director: 
+      Christopher Nolan
+    </p>
+    <p>
+      Starring: 
+      Leonardo DiCaprio
+      Ken Watanabe
+      Joseph Gordon-Levitt
+      Marion Cotillard
+      Elliot Page
+      Tom Hardy
+      Cillian Murphy
+      Tom Berenger
+      Michael Caine
+    </p>
+    <p>
+      IMDb: 
+      8.8
+      /10
+    </p>
+    <p>
+      Oscar: 
+      4
+    </p>
+  </div>
+</div>
+`;

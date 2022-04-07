@@ -1,4 +1,4 @@
-import { filmsInformation } from '../data/films-information';
+import filmsInformation from '../data/films-information';
 import Card from './card';
 
 export default function CardList() {

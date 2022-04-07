@@ -4,7 +4,7 @@ type CardType = {
   name: string;
   year: number;
   director: string;
-  actors: [string];
+  actors: Array<string>;
   imdb: number;
   oscars: number;
 };
