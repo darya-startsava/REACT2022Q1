@@ -1,5 +1,5 @@
 import filmsInformation from '../data/films-information';
-import Card from './card';
+import Card from './Card';
 
 export default function CardList() {
   return (

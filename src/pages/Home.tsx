@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import CardList from '../components/card-list';
-import SearchBar from '../components/search-bar';
+import CardList from '../components/CardList';
+import SearchBar from '../components/SearchBar';
 
 export default function Home() {
   return (

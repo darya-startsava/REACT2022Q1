@@ -9,7 +9,7 @@ export default function Card({ id, image, name, year, director, actors, imdb, os
       <p>Director: {director}</p>
       <p>Starring: {actors}</p>
       <p>IMDb: {imdb}/10</p>
-      <p>Oscar: {oscars}</p>
+      <p>Oscars: {oscars}</p>
     </div>
   );
 }

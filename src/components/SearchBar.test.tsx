@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import SearchBar from './search-bar';
+import SearchBar from './SearchBar';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import CardList from './card-list';
+import CardList from './CardList';
 import '@testing-library/jest-dom/extend-expect';
 
 const fakeData = [{ id: 1 }, { id: 2 }];
