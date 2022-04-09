@@ -19,7 +19,7 @@ describe('router', () => {
     expect(screen.getByTestId('home-page')).toBeInTheDocument();
   });
 
-  it('show error page if wrong link', () => {
+  it('should show error page if the link does not match any route', () => {
     render(
       <MemoryRouter initialEntries={['/wrong-path']}>
         <App />

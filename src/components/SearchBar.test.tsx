@@ -46,13 +46,13 @@ describe('Search bar', () => {
     expect(input.value).toBe('test1');
   });
 
-  it('search bar value show value from local storage', () => {
+  it('should show the value from local storage', () => {
     global.localStorage.setItem('value', 'test2');
     const { container } = render(<SearchBar />);
     expect(container).toMatchSnapshot();
   });
 
-  it('search bar value is saved to local storage when unmount', () => {
+  it('should save the value to local storage when unmount', () => {
     const { unmount } = render(<SearchBar />);
     const input = screen.queryByPlaceholderText('Search bar') as HTMLInputElement;
     userEvent.type(input, 'test3');
