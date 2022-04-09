@@ -17,6 +17,9 @@ describe('router test', () => {
     const homeLink = screen.getByTestId('home-link');
     userEvent.click(homeLink);
     expect(screen.getByTestId('home-page')).toBeInTheDocument();
+    const formsLink = screen.getByTestId('forms-link');
+    userEvent.click(formsLink);
+    expect(screen.getByTestId('forms-page')).toBeInTheDocument();
   });
 
   it('show error page if wrong link', () => {
