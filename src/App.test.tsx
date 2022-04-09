@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('router', () => {
-  it('following links', () => {
+  it('should handle url changes', () => {
     render(
       <MemoryRouter>
         <App />
