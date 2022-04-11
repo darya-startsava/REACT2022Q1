@@ -39,24 +39,17 @@ describe('Search bar', () => {
     });
   });
 
-  it('search bar value update on change', () => {
-    render(<SearchBar />);
-    const input = screen.queryByPlaceholderText('Search bar') as HTMLInputElement;
-    userEvent.type(input, 'test1');
-    expect(input.value).toBe('test1');
-  });
-
-  it('search bar value show value from local storage', () => {
-    global.localStorage.setItem('value', 'test2');
+  it('should show the value from local storage', () => {
+    global.localStorage.setItem('value', 'test1');
     const { container } = render(<SearchBar />);
     expect(container).toMatchSnapshot();
   });
 
-  it('search bar value is saved to local storage when unmount', () => {
+  it('should save the value to local storage when unmount', () => {
     const { unmount } = render(<SearchBar />);
     const input = screen.queryByPlaceholderText('Search bar') as HTMLInputElement;
-    userEvent.type(input, 'test3');
+    userEvent.type(input, 'test2');
     unmount();
-    expect(global.localStorage.getItem('value')).toBe('test3');
+    expect(global.localStorage.getItem('value')).toBe('test2');
   });
 });

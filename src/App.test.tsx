@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
-describe('router test', () => {
-  it('following links', () => {
+describe('router', () => {
+  it('should handle url changes', () => {
     render(
       <MemoryRouter>
         <App />
@@ -22,7 +22,7 @@ describe('router test', () => {
     expect(screen.getByTestId('forms-page')).toBeInTheDocument();
   });
 
-  it('show error page if wrong link', () => {
+  it('should show error page if the link does not match any route', () => {
     render(
       <MemoryRouter initialEntries={['/wrong-path']}>
         <App />

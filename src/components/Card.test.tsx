@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import Card from './Card';
 
 describe('Card', () => {
-  test('information about director', () => {
+  test('should contain full information about film', () => {
     const { container } = render(
       <Card
         id={3}
