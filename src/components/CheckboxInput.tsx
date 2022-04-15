@@ -1,27 +1,27 @@
 import React from 'react';
 
 const CheckboxInput = React.forwardRef<HTMLDivElement>((props, ref) => (
-  <div ref={ref} {...props}>
+  <div className="mt-2" ref={ref} {...props}>
     Movie genres:&nbsp;
-    <label>
+    <label className="mx-1">
       Science fiction
-      <input type="checkbox" value="science fiction" />
+      <input className="mx-1" type="checkbox" value="science fiction" />
     </label>
-    <label>
+    <label className="mx-1">
       Biopic
-      <input type="checkbox" value="biopic" />
+      <input className="mx-1" type="checkbox" value="biopic" />
     </label>
-    <label>
+    <label className="mx-1">
       Disaster movie
-      <input type="checkbox" value="disaster movie" />
+      <input className="mx-1" type="checkbox" value="disaster movie" />
     </label>
-    <label>
+    <label className="mx-1">
       Fantasy
-      <input type="checkbox" value="fantasy" />
+      <input className="mx-1" type="checkbox" value="fantasy" />
     </label>
-    <label>
+    <label className="mx-1">
       Period drama
-      <input type="checkbox" value="period drama" />
+      <input className="mx-1" type="checkbox" value="period drama" />
     </label>
   </div>
 ));

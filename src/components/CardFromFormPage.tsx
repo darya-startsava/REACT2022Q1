@@ -10,13 +10,13 @@ export default function CardFromFormPage({
   movieGenres,
 }: CardFromFormPageType) {
   return (
-    <div>
+    <div className="card" style={{ width: 200 }}>
       <img src={image} width="200" height="auto" alt="avatar" />
-      <h5>{name}</h5>
+      <h5 className="card-title">{name}</h5>
       <>{gender}</>
       <p>Date of birth: {dateOfBirth}</p>
       <p>Country of birth: {countryOfBirth}</p>
-      <p>Genres: {movieGenres}</p>
+      <p>Genres: {movieGenres.join(', ')}</p>
     </div>
   );
 }

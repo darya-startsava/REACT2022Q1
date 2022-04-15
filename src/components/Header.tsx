@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 export default function Header() {
   return (
     <header>
-      <nav>
-        <Link to="/" data-testid="home-link">
+      <nav className="nav justify-content-center">
+        <Link className="nav-item mx-2" to="/" data-testid="home-link">
           Home
         </Link>
-        <Link to="/forms" data-testid="forms-link">
+        <Link className="nav-item mx-2" to="/forms" data-testid="forms-link">
           Forms
         </Link>
-        <Link to="/about-us" data-testid="about-us-link">
+        <Link className="nav-item mx-2" to="/about-us" data-testid="about-us-link">
           About Us
         </Link>
       </nav>

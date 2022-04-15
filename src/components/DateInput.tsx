@@ -1,9 +1,9 @@
 import React from 'react';
 
 const DateInput = React.forwardRef<HTMLInputElement>((props, ref) => (
-  <label>
+  <label className="form-label">
     Date of Birth:&nbsp;
-    <input type="date" ref={ref} {...props} />
+    <input className="form-control" type="date" ref={ref} {...props} />
   </label>
 ));
 

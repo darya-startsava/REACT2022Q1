@@ -3,13 +3,13 @@ import React from 'react';
 const RadioInput = React.forwardRef<HTMLDivElement>((props, ref) => (
   <div ref={ref} {...props}>
     Gender:&nbsp;
-    <label>
+    <label className="mx-1">
       Male
-      <input type="radio" name="gender" value="male" />
+      <input className="mx-1" type="radio" name="gender" value="male" />
     </label>
-    <label>
+    <label className="mx-1">
       Female
-      <input type="radio" name="gender" value="female" />
+      <input className="mx-1" type="radio" name="gender" value="female" />
     </label>
   </div>
 ));

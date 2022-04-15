@@ -83,7 +83,9 @@ export default class Form extends React.Component<{}, State> {
           <br />
           <FileInput ref={this.fileInputRef} />
           <br />
-          <button type="submit">Submit</button>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
         </form>
         <CardListFromFormPage data={this.state.data} />
       </>

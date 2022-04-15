@@ -1,4 +1,5 @@
-import React from 'react';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import './index.css';

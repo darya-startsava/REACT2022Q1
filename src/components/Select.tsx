@@ -3,7 +3,7 @@ import React from 'react';
 const Select = React.forwardRef<HTMLSelectElement>((props, ref) => (
   <label>
     Country of Birth:&nbsp;
-    <select ref={ref} {...props}>
+    <select className="form-select" ref={ref} {...props}>
       <option value="">--choose country--</option>
       <option value="USA">USA</option>
       <option value="UK">UK</option>
