@@ -34,33 +34,29 @@ export default class Form extends React.Component<{}, State> {
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     let gender = '';
     let genres: Array<string> = [];
+    let fileToCreateUrl: File;
     event.preventDefault();
-    console.log(
-      this.inputRef.current?.value,
-      this.dateInputRef.current?.value,
-      this.selectRef.current?.value,
-      this.fileInputRef.current?.value
-    );
 
     for (let i = 0; i < this.radioInputRef.current!.children.length; i++) {
       const input = this.radioInputRef.current?.children[i].children[0] as HTMLInputElement;
       if (input.checked) {
         gender = input.value;
-        console.log(input.value);
       }
     }
     for (let i = 0; i < this.checkboxInputRef.current!.children.length; i++) {
       const input = this.checkboxInputRef.current?.children[i].children[0] as HTMLInputElement;
       if (input.checked) {
         genres.push(input.value);
-        console.log(input.value);
       }
+    }
+    if (this.fileInputRef.current?.files) {
+      fileToCreateUrl = this.fileInputRef.current?.files[0];
     }
     this.setState((state) => {
       return {
         data: state.data.concat({
           id: state.data.length,
-          image: this.fileInputRef.current?.value,
+          image: URL.createObjectURL(fileToCreateUrl),
           name: this.inputRef.current?.value,
           gender: gender,
           dateOfBirth: this.dateInputRef.current?.value,
