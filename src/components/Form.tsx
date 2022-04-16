@@ -10,6 +10,7 @@ import CardFromFormPageType from '../types/card-from-form-page';
 
 type State = {
   data: CardFromFormPageType[];
+  successMessage: string;
   nameError: string;
   dateError: string;
   genderError: string;
@@ -24,6 +25,7 @@ let genres: Array<string> = [];
 let fileToCreateUrl: File;
 
 export default class Form extends React.Component<{}, State> {
+  formRef: React.RefObject<HTMLFormElement>;
   inputRef: React.RefObject<HTMLInputElement>;
   dateInputRef: React.RefObject<HTMLInputElement>;
   selectRef: React.RefObject<HTMLSelectElement>;
@@ -40,11 +42,13 @@ export default class Form extends React.Component<{}, State> {
       countryError: '',
       genresError: '',
       imageError: '',
+      successMessage: '',
       isSubmitButtonEnabled: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.validate = this.validate.bind(this);
+    this.formRef = React.createRef();
     this.inputRef = React.createRef();
     this.dateInputRef = React.createRef();
     this.selectRef = React.createRef();
@@ -54,6 +58,9 @@ export default class Form extends React.Component<{}, State> {
   }
 
   handleChange() {
+    if (this.state.successMessage) {
+      this.setState({ successMessage: '' });
+    }
     if (
       !this.state.nameError &&
       !this.state.dateError &&
@@ -152,26 +159,32 @@ export default class Form extends React.Component<{}, State> {
       if (this.fileInputRef.current?.files) {
         fileToCreateUrl = this.fileInputRef.current?.files[0];
       }
-      this.setState((state) => {
-        return {
-          data: state.data.concat({
-            id: state.data.length,
-            image: URL.createObjectURL(fileToCreateUrl),
-            name: this.inputRef.current?.value,
-            gender: gender,
-            dateOfBirth: this.dateInputRef.current?.value,
-            countryOfBirth: this.selectRef.current?.value,
-            movieGenres: genres,
-          }),
-        };
-      });
+      this.setState(
+        (state) => {
+          return {
+            data: state.data.concat({
+              id: state.data.length,
+              image: URL.createObjectURL(fileToCreateUrl),
+              name: this.inputRef.current?.value,
+              gender: gender,
+              dateOfBirth: this.dateInputRef.current?.value,
+              countryOfBirth: this.selectRef.current?.value,
+              movieGenres: genres,
+            }),
+            successMessage: 'Your data has been successfully saved',
+          };
+        },
+        () => {
+          this.formRef.current?.reset();
+        }
+      );
     }
   }
 
   render() {
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} ref={this.formRef}>
           <Input
             ref={this.inputRef}
             onChange={() => this.setState({ nameError: '' }, this.handleChange)}
@@ -215,6 +228,7 @@ export default class Form extends React.Component<{}, State> {
           >
             Submit
           </button>
+          <div style={{ fontSize: 20, color: 'green' }}>{this.state.successMessage}</div>
         </form>
         <CardListFromFormPage data={this.state.data} />
       </>
