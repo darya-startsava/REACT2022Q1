@@ -8,7 +8,20 @@ import FileInput from './FileInput';
 import CardListFromFormPage from './CardListFromFormPage';
 import CardFromFormPageType from '../types/card-from-form-page';
 
-type State = { data: CardFromFormPageType[] };
+type State = {
+  data: CardFromFormPageType[];
+  nameError: string;
+  dateError: string;
+  genderError: string;
+  countryError: string;
+  genresError: string;
+  imageError: string;
+  isSubmitButtonEnabled: boolean;
+};
+
+let gender = '';
+let genres: Array<string> = [];
+let fileToCreateUrl: File;
 
 export default class Form extends React.Component<{}, State> {
   inputRef: React.RefObject<HTMLInputElement>;
@@ -21,8 +34,17 @@ export default class Form extends React.Component<{}, State> {
     super(props);
     this.state = {
       data: [],
+      nameError: '',
+      dateError: '',
+      genderError: '',
+      countryError: '',
+      genresError: '',
+      imageError: '',
+      isSubmitButtonEnabled: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.validate = this.validate.bind(this);
     this.inputRef = React.createRef();
     this.dateInputRef = React.createRef();
     this.selectRef = React.createRef();
@@ -31,11 +53,41 @@ export default class Form extends React.Component<{}, State> {
     this.fileInputRef = React.createRef();
   }
 
-  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    let gender = '';
-    let genres: Array<string> = [];
-    let fileToCreateUrl: File;
-    event.preventDefault();
+  handleChange() {
+    if (
+      !this.state.nameError &&
+      !this.state.dateError &&
+      !this.state.genderError &&
+      !this.state.countryError &&
+      !this.state.genresError &&
+      !this.state.imageError
+    ) {
+      this.setState({ isSubmitButtonEnabled: true });
+    }
+  }
+
+  validate() {
+    let nameError = '';
+    let dateError = '';
+    let countryError = '';
+    let genderError = '';
+    let genresError = '';
+    let imageError = '';
+    if (
+      !this.inputRef.current?.value ||
+      (this.inputRef.current?.value && this.inputRef.current?.value.length <= 1)
+    ) {
+      nameError = 'This field requires more than 1 symbol';
+    }
+    if (!this.dateInputRef.current?.value) {
+      dateError = 'This field must be filled';
+    }
+    if (
+      this.dateInputRef.current?.value &&
+      Date.parse(this.dateInputRef.current!.value) >= Date.now()
+    ) {
+      dateError = 'Date must be earlier than today';
+    }
 
     for (let i = 0; i < this.radioInputRef.current!.children.length; i++) {
       const input = this.radioInputRef.current?.children[i].children[0] as HTMLInputElement;
@@ -43,47 +95,124 @@ export default class Form extends React.Component<{}, State> {
         gender = input.value;
       }
     }
+    if (!gender) {
+      genderError = 'Choose gender';
+    }
     for (let i = 0; i < this.checkboxInputRef.current!.children.length; i++) {
       const input = this.checkboxInputRef.current?.children[i].children[0] as HTMLInputElement;
       if (input.checked) {
         genres.push(input.value);
       }
     }
-    if (this.fileInputRef.current?.files) {
-      fileToCreateUrl = this.fileInputRef.current?.files[0];
+    if (!this.selectRef.current?.value) {
+      countryError = 'Choose country of birth';
     }
-    this.setState((state) => {
-      return {
-        data: state.data.concat({
-          id: state.data.length,
-          image: URL.createObjectURL(fileToCreateUrl),
-          name: this.inputRef.current?.value,
-          gender: gender,
-          dateOfBirth: this.dateInputRef.current?.value,
-          countryOfBirth: this.selectRef.current?.value,
-          movieGenres: genres,
-        }),
-      };
-    });
+    if (!genres.length) {
+      genresError = 'Choose at least one genre';
+    }
+    if (!this.fileInputRef.current?.files?.[0]) {
+      imageError = 'Add image';
+    }
+    if (!imageError && !this.fileInputRef.current?.files?.[0].name.match(/.jpg$|.png$/)) {
+      imageError = 'Add file with extension .jpg or .png';
+    }
+    if (nameError) {
+      this.setState({ nameError });
+    }
+    if (dateError) {
+      this.setState({ dateError });
+    }
+    if (genderError) {
+      this.setState({ genderError });
+    }
+    if (countryError) {
+      this.setState({ countryError });
+    }
+    if (genresError) {
+      this.setState({ genresError });
+    }
+    if (imageError) {
+      this.setState({ imageError });
+    }
+    if (nameError || dateError || genderError || countryError || genresError || imageError) {
+      this.setState({ isSubmitButtonEnabled: false });
+      return false;
+    }
+    this.setState({ nameError, dateError, genderError, genresError, countryError, imageError });
+    this.setState({ isSubmitButtonEnabled: true });
+    return true;
+  }
+
+  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    gender = '';
+    genres = [];
+    event.preventDefault();
+    const isValid = this.validate();
+    if (isValid) {
+      if (this.fileInputRef.current?.files) {
+        fileToCreateUrl = this.fileInputRef.current?.files[0];
+      }
+      this.setState((state) => {
+        return {
+          data: state.data.concat({
+            id: state.data.length,
+            image: URL.createObjectURL(fileToCreateUrl),
+            name: this.inputRef.current?.value,
+            gender: gender,
+            dateOfBirth: this.dateInputRef.current?.value,
+            countryOfBirth: this.selectRef.current?.value,
+            movieGenres: genres,
+          }),
+        };
+      });
+    }
   }
 
   render() {
     return (
       <>
         <form onSubmit={this.handleSubmit}>
-          <Input ref={this.inputRef} />
+          <Input
+            ref={this.inputRef}
+            onChange={() => this.setState({ nameError: '' }, this.handleChange)}
+          />
           <br />
-          <RadioInput ref={this.radioInputRef} />
+          <div style={{ fontSize: 12, color: 'red' }}>{this.state.nameError}</div>
+          <RadioInput
+            ref={this.radioInputRef}
+            onChange={() => this.setState({ genderError: '' }, this.handleChange)}
+          />
           <br />
-          <DateInput ref={this.dateInputRef} />
+          <div style={{ fontSize: 12, color: 'red' }}>{this.state.genderError}</div>
+          <DateInput
+            ref={this.dateInputRef}
+            onChange={() => this.setState({ dateError: '' }, this.handleChange)}
+          />
           <br />
-          <Select ref={this.selectRef} />
+          <div style={{ fontSize: 12, color: 'red' }}>{this.state.dateError}</div>
+          <Select
+            ref={this.selectRef}
+            onChange={() => this.setState({ countryError: '' }, this.handleChange)}
+          />
           <br />
-          <CheckboxInput ref={this.checkboxInputRef} />
+          <div style={{ fontSize: 12, color: 'red' }}>{this.state.countryError}</div>
+          <CheckboxInput
+            ref={this.checkboxInputRef}
+            onChange={() => this.setState({ genresError: '' }, this.handleChange)}
+          />
           <br />
-          <FileInput ref={this.fileInputRef} />
+          <div style={{ fontSize: 12, color: 'red' }}>{this.state.genresError}</div>
+          <FileInput
+            ref={this.fileInputRef}
+            onChange={() => this.setState({ imageError: '' }, this.handleChange)}
+          />
           <br />
-          <button type="submit" className="btn btn-primary">
+          <div style={{ fontSize: 12, color: 'red' }}>{this.state.imageError}</div>
+          <button
+            disabled={!this.state.isSubmitButtonEnabled}
+            type="submit"
+            className="btn btn-primary"
+          >
             Submit
           </button>
         </form>

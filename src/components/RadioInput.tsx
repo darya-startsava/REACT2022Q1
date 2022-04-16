@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RadioInput = React.forwardRef<HTMLDivElement>((props, ref) => (
+const RadioInput = React.forwardRef<HTMLDivElement, Record<string, unknown>>((props, ref) => (
   <div ref={ref} {...props}>
     Gender:&nbsp;
     <label className="mx-1">

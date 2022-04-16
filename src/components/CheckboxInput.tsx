@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CheckboxInput = React.forwardRef<HTMLDivElement>((props, ref) => (
+const CheckboxInput = React.forwardRef<HTMLDivElement, Record<string, unknown>>((props, ref) => (
   <div className="mt-2" ref={ref} {...props}>
     Movie genres:&nbsp;
     <label className="mx-1">
