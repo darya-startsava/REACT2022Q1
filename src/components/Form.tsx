@@ -154,6 +154,9 @@ export default class Form extends React.Component<{}, State> {
     gender = '';
     genres = [];
     event.preventDefault();
+    if (this.state.successMessage) {
+      this.setState({ successMessage: '' });
+    }
     const isValid = this.validate();
     if (isValid) {
       if (this.fileInputRef.current?.files) {
