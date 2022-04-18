@@ -23,6 +23,22 @@ describe('form', () => {
     userEvent.upload(getImage(), file);
     expect(container).toMatchSnapshot();
   });
+
+  it('should create a new card if all fields are filled', () => {
+    const { container } = render(<Form />);
+
+    completeForm();
+    expect(container).toMatchSnapshot();
+  });
+
+  it('should create 3 cards if submit 3 times', () => {
+    const { container } = render(<Form />);
+
+    for (let i = 1; i <= 3; i++) {
+      completeForm();
+    }
+    expect(container).toMatchSnapshot();
+  });
 });
 
 function getName() {
@@ -53,4 +69,16 @@ function getGenres() {
 
 function getImage() {
   return screen.getByLabelText(/upload file/i);
+}
+
+function completeForm() {
+  global.URL.createObjectURL = jest.fn();
+  userEvent.type(getName(), 'Name');
+  userEvent.click(getGender());
+  userEvent.type(getDate(), '2021-04-04');
+  const file = new File(['hello'], 'hello.png', { type: 'image/png' });
+  userEvent.selectOptions(getCountry(), within(getCountry()).getByRole('option', { name: 'UK' }));
+  userEvent.click(getGenres());
+  userEvent.upload(getImage(), file);
+  userEvent.click(screen.getByRole('button', { name: /Submit/i }));
 }

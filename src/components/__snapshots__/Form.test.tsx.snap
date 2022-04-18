@@ -1,5 +1,551 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`form should create 3 cards if submit 3 times 1`] = `
+<div>
+  <form>
+    <label
+      class="form-label"
+    >
+      Name: 
+      <input
+        class="form-control"
+        type="text"
+      />
+    </label>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <div>
+      Gender: 
+      <label
+        class="mx-1"
+      >
+        Male
+        <input
+          class="mx-1"
+          name="gender"
+          type="radio"
+          value="male"
+        />
+      </label>
+      <label
+        class="mx-1"
+      >
+        Female
+        <input
+          class="mx-1"
+          name="gender"
+          type="radio"
+          value="female"
+        />
+      </label>
+    </div>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <label
+      class="form-label"
+    >
+      Date of Birth: 
+      <input
+        class="form-control"
+        type="date"
+      />
+    </label>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <label>
+      Country of Birth: 
+      <select
+        class="form-select"
+      >
+        <option
+          value=""
+        >
+          --choose country--
+        </option>
+        <option
+          value="USA"
+        >
+          USA
+        </option>
+        <option
+          value="UK"
+        >
+          UK
+        </option>
+        <option
+          value="Canada"
+        >
+          Canada
+        </option>
+        <option
+          value="Australia"
+        >
+          Australia
+        </option>
+        <option
+          value="France "
+        >
+          France 
+        </option>
+        <option
+          value="Germany"
+        >
+          Germany
+        </option>
+        <option
+          value="Sweden"
+        >
+          Sweden
+        </option>
+        <option
+          value="Spain"
+        >
+          Spain
+        </option>
+        <option
+          value="Denmark"
+        >
+          Denmark
+        </option>
+      </select>
+    </label>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <div
+      class="mt-2"
+    >
+      Movie genres: 
+      <label
+        class="mx-1"
+      >
+        Science fiction
+        <input
+          class="mx-1"
+          type="checkbox"
+          value="science fiction"
+        />
+      </label>
+      <label
+        class="mx-1"
+      >
+        Biopic
+        <input
+          class="mx-1"
+          type="checkbox"
+          value="biopic"
+        />
+      </label>
+      <label
+        class="mx-1"
+      >
+        Disaster movie
+        <input
+          class="mx-1"
+          type="checkbox"
+          value="disaster movie"
+        />
+      </label>
+      <label
+        class="mx-1"
+      >
+        Fantasy
+        <input
+          class="mx-1"
+          type="checkbox"
+          value="fantasy"
+        />
+      </label>
+      <label
+        class="mx-1"
+      >
+        Period drama
+        <input
+          class="mx-1"
+          type="checkbox"
+          value="period drama"
+        />
+      </label>
+    </div>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <label
+      class="mb-2"
+    >
+      Upload file:
+      <input
+        type="File"
+      />
+    </label>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <button
+      class="btn btn-primary"
+      type="submit"
+    >
+      Submit
+    </button>
+    <div
+      style="font-size: 20px; color: green;"
+    >
+      Your data has been successfully saved
+    </div>
+  </form>
+  <ul
+    class="list-group list-group-horizontal"
+  >
+    <li
+      class="list-group-item"
+    >
+      <div
+        class="card"
+        style="width: 200px;"
+      >
+        <img
+          alt="avatar"
+          height="auto"
+          width="200"
+        />
+        <h5
+          class="card-title"
+        >
+          Name
+        </h5>
+        female
+        <p>
+          Date of birth: 
+          2021-04-04
+        </p>
+        <p>
+          Country of birth: 
+          UK
+        </p>
+        <p>
+          Genres: 
+          science fiction
+        </p>
+      </div>
+    </li>
+    <li
+      class="list-group-item"
+    >
+      <div
+        class="card"
+        style="width: 200px;"
+      >
+        <img
+          alt="avatar"
+          height="auto"
+          width="200"
+        />
+        <h5
+          class="card-title"
+        >
+          Name
+        </h5>
+        female
+        <p>
+          Date of birth: 
+          2021-04-04
+        </p>
+        <p>
+          Country of birth: 
+          UK
+        </p>
+        <p>
+          Genres: 
+          science fiction
+        </p>
+      </div>
+    </li>
+    <li
+      class="list-group-item"
+    >
+      <div
+        class="card"
+        style="width: 200px;"
+      >
+        <img
+          alt="avatar"
+          height="auto"
+          width="200"
+        />
+        <h5
+          class="card-title"
+        >
+          Name
+        </h5>
+        female
+        <p>
+          Date of birth: 
+          2021-04-04
+        </p>
+        <p>
+          Country of birth: 
+          UK
+        </p>
+        <p>
+          Genres: 
+          science fiction
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`form should create a new card if all fields are filled 1`] = `
+<div>
+  <form>
+    <label
+      class="form-label"
+    >
+      Name: 
+      <input
+        class="form-control"
+        type="text"
+      />
+    </label>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <div>
+      Gender: 
+      <label
+        class="mx-1"
+      >
+        Male
+        <input
+          class="mx-1"
+          name="gender"
+          type="radio"
+          value="male"
+        />
+      </label>
+      <label
+        class="mx-1"
+      >
+        Female
+        <input
+          class="mx-1"
+          name="gender"
+          type="radio"
+          value="female"
+        />
+      </label>
+    </div>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <label
+      class="form-label"
+    >
+      Date of Birth: 
+      <input
+        class="form-control"
+        type="date"
+      />
+    </label>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <label>
+      Country of Birth: 
+      <select
+        class="form-select"
+      >
+        <option
+          value=""
+        >
+          --choose country--
+        </option>
+        <option
+          value="USA"
+        >
+          USA
+        </option>
+        <option
+          value="UK"
+        >
+          UK
+        </option>
+        <option
+          value="Canada"
+        >
+          Canada
+        </option>
+        <option
+          value="Australia"
+        >
+          Australia
+        </option>
+        <option
+          value="France "
+        >
+          France 
+        </option>
+        <option
+          value="Germany"
+        >
+          Germany
+        </option>
+        <option
+          value="Sweden"
+        >
+          Sweden
+        </option>
+        <option
+          value="Spain"
+        >
+          Spain
+        </option>
+        <option
+          value="Denmark"
+        >
+          Denmark
+        </option>
+      </select>
+    </label>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <div
+      class="mt-2"
+    >
+      Movie genres: 
+      <label
+        class="mx-1"
+      >
+        Science fiction
+        <input
+          class="mx-1"
+          type="checkbox"
+          value="science fiction"
+        />
+      </label>
+      <label
+        class="mx-1"
+      >
+        Biopic
+        <input
+          class="mx-1"
+          type="checkbox"
+          value="biopic"
+        />
+      </label>
+      <label
+        class="mx-1"
+      >
+        Disaster movie
+        <input
+          class="mx-1"
+          type="checkbox"
+          value="disaster movie"
+        />
+      </label>
+      <label
+        class="mx-1"
+      >
+        Fantasy
+        <input
+          class="mx-1"
+          type="checkbox"
+          value="fantasy"
+        />
+      </label>
+      <label
+        class="mx-1"
+      >
+        Period drama
+        <input
+          class="mx-1"
+          type="checkbox"
+          value="period drama"
+        />
+      </label>
+    </div>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <label
+      class="mb-2"
+    >
+      Upload file:
+      <input
+        type="File"
+      />
+    </label>
+    <br />
+    <div
+      style="font-size: 12px; color: red;"
+    />
+    <button
+      class="btn btn-primary"
+      type="submit"
+    >
+      Submit
+    </button>
+    <div
+      style="font-size: 20px; color: green;"
+    >
+      Your data has been successfully saved
+    </div>
+  </form>
+  <ul
+    class="list-group list-group-horizontal"
+  >
+    <li
+      class="list-group-item"
+    >
+      <div
+        class="card"
+        style="width: 200px;"
+      >
+        <img
+          alt="avatar"
+          height="auto"
+          width="200"
+        />
+        <h5
+          class="card-title"
+        >
+          Name
+        </h5>
+        female
+        <p>
+          Date of birth: 
+          2021-04-04
+        </p>
+        <p>
+          Country of birth: 
+          UK
+        </p>
+        <p>
+          Genres: 
+          science fiction
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
 exports[`form should show error messages for empty fields, and shouldn't show them for completed fields(1-3) 1`] = `
 <div>
   <form>
