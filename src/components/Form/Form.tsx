@@ -1,12 +1,13 @@
 import React from 'react';
-import Input from './Input';
-import DateInput from './DateInput';
-import Select from './Select';
-import RadioInput from './RadioInput';
-import CheckboxInput from './CheckboxInput';
-import FileInput from './FileInput';
-import CardList from './CardList';
-import Card from '../types/card';
+import './Form.css';
+import Input from '../Input';
+import DateInput from '../DateInput';
+import Select from '../Select';
+import RadioGroup from '../RadioGroup';
+import CheckboxGroup from '../CheckboxGroup';
+import FileInput from '../FileInput';
+import CardList from '../CardList';
+import Card from '../../types/card';
 
 type State = {
   data: Card[];
@@ -24,15 +25,17 @@ let gender = '';
 let genres: Array<string> = [];
 let fileToCreateUrl: File;
 
-export default class Form extends React.Component<{}, State> {
+interface FormProps extends React.HTMLProps<HTMLFormElement> {}
+
+export default class Form extends React.Component<FormProps, State> {
   formRef: React.RefObject<HTMLFormElement>;
   inputRef: React.RefObject<HTMLInputElement>;
   dateInputRef: React.RefObject<HTMLInputElement>;
   selectRef: React.RefObject<HTMLSelectElement>;
-  radioInputRef: React.RefObject<HTMLDivElement>;
-  checkboxInputRef: React.RefObject<HTMLDivElement>;
+  radioGroupRef: React.RefObject<HTMLDivElement>;
+  checkboxGroupRef: React.RefObject<HTMLDivElement>;
   fileInputRef: React.RefObject<HTMLInputElement>;
-  constructor(props: Record<string, unknown>) {
+  constructor(props: FormProps) {
     super(props);
     this.state = {
       data: [],
@@ -52,8 +55,8 @@ export default class Form extends React.Component<{}, State> {
     this.inputRef = React.createRef();
     this.dateInputRef = React.createRef();
     this.selectRef = React.createRef();
-    this.radioInputRef = React.createRef();
-    this.checkboxInputRef = React.createRef();
+    this.radioGroupRef = React.createRef();
+    this.checkboxGroupRef = React.createRef();
     this.fileInputRef = React.createRef();
   }
 
@@ -96,8 +99,8 @@ export default class Form extends React.Component<{}, State> {
       dateError = 'Date must be earlier than today';
     }
 
-    for (let i = 0; i < this.radioInputRef.current!.children.length; i++) {
-      const input = this.radioInputRef.current?.children[i].children[0] as HTMLInputElement;
+    for (let i = 0; i < this.radioGroupRef.current!.children.length; i++) {
+      const input = this.radioGroupRef.current?.children[i].children[0] as HTMLInputElement;
       if (input.checked) {
         gender = input.value;
       }
@@ -105,8 +108,8 @@ export default class Form extends React.Component<{}, State> {
     if (!gender) {
       genderError = 'Choose gender';
     }
-    for (let i = 0; i < this.checkboxInputRef.current!.children.length; i++) {
-      const input = this.checkboxInputRef.current?.children[i].children[0] as HTMLInputElement;
+    for (let i = 0; i < this.checkboxGroupRef.current!.children.length; i++) {
+      const input = this.checkboxGroupRef.current?.children[i].children[0] as HTMLInputElement;
       if (input.checked) {
         genres.push(input.value);
         break;
@@ -160,9 +163,7 @@ export default class Form extends React.Component<{}, State> {
     }
     const isValid = this.validate();
     if (isValid) {
-      if (this.fileInputRef.current?.files) {
-        fileToCreateUrl = this.fileInputRef.current?.files[0];
-      }
+      fileToCreateUrl = this.fileInputRef.current!.files![0];
       this.setState(
         (state) => {
           return {
@@ -193,38 +194,32 @@ export default class Form extends React.Component<{}, State> {
             ref={this.inputRef}
             onChange={() => this.setState({ nameError: '' }, this.handleChange)}
           />
-          <br />
-          <div style={{ fontSize: 12, color: 'red' }}>{this.state.nameError}</div>
-          <RadioInput
-            ref={this.radioInputRef}
+          <div className="error-message mb-3">{this.state.nameError}</div>
+          <RadioGroup
+            ref={this.radioGroupRef}
             onChange={() => this.setState({ genderError: '' }, this.handleChange)}
           />
-          <br />
-          <div style={{ fontSize: 12, color: 'red' }}>{this.state.genderError}</div>
+          <div className="error-message mb-3">{this.state.genderError}</div>
           <DateInput
             ref={this.dateInputRef}
             onChange={() => this.setState({ dateError: '' }, this.handleChange)}
           />
-          <br />
-          <div style={{ fontSize: 12, color: 'red' }}>{this.state.dateError}</div>
+          <div className="error-message mb-3">{this.state.dateError}</div>
           <Select
             ref={this.selectRef}
             onChange={() => this.setState({ countryError: '' }, this.handleChange)}
           />
-          <br />
-          <div style={{ fontSize: 12, color: 'red' }}>{this.state.countryError}</div>
-          <CheckboxInput
-            ref={this.checkboxInputRef}
+          <div className="error-message mb-3">{this.state.countryError}</div>
+          <CheckboxGroup
+            ref={this.checkboxGroupRef}
             onChange={() => this.setState({ genresError: '' }, this.handleChange)}
           />
-          <br />
-          <div style={{ fontSize: 12, color: 'red' }}>{this.state.genresError}</div>
+          <div className="error-message mb-3">{this.state.genresError}</div>
           <FileInput
             ref={this.fileInputRef}
             onChange={() => this.setState({ imageError: '' }, this.handleChange)}
           />
-          <br />
-          <div style={{ fontSize: 12, color: 'red' }}>{this.state.imageError}</div>
+          <div className="error-message mb-3">{this.state.imageError}</div>
           <button
             disabled={!this.state.isSubmitButtonEnabled}
             type="submit"
@@ -232,7 +227,7 @@ export default class Form extends React.Component<{}, State> {
           >
             Submit
           </button>
-          <div style={{ fontSize: 20, color: 'green' }}>{this.state.successMessage}</div>
+          <div className="success-message">{this.state.successMessage}</div>
         </form>
         <CardList data={this.state.data} />
       </>

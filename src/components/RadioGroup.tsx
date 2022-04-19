@@ -1,8 +1,10 @@
 import React from 'react';
 
-const RadioInput = React.forwardRef<HTMLDivElement, Record<string, unknown>>((props, ref) => (
+interface InputProps extends React.HTMLProps<HTMLInputElement> {}
+
+const RadioGroup = React.forwardRef<HTMLDivElement, InputProps>((props, ref) => (
   <div ref={ref} {...props}>
-    Gender:&nbsp;
+    Gender:
     <label className="mx-1">
       Male
       <input className="mx-1" type="radio" name="gender" value="male" />
@@ -14,4 +16,4 @@ const RadioInput = React.forwardRef<HTMLDivElement, Record<string, unknown>>((pr
   </div>
 ));
 
-export default RadioInput;
+export default RadioGroup;

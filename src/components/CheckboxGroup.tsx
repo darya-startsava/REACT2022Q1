@@ -1,8 +1,10 @@
 import React from 'react';
 
-const CheckboxInput = React.forwardRef<HTMLDivElement, Record<string, unknown>>((props, ref) => (
+interface InputProps extends React.HTMLProps<HTMLInputElement> {}
+
+const CheckboxGroup = React.forwardRef<HTMLDivElement, InputProps>((props, ref) => (
   <div className="mt-2" ref={ref} {...props}>
-    Movie genres:&nbsp;
+    Movie genres:
     <label className="mx-1">
       Science fiction
       <input className="mx-1" type="checkbox" value="science fiction" />
@@ -26,4 +28,4 @@ const CheckboxInput = React.forwardRef<HTMLDivElement, Record<string, unknown>>(
   </div>
 ));
 
-export default CheckboxInput;
+export default CheckboxGroup;

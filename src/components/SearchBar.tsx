@@ -1,7 +1,9 @@
 import React, { ChangeEvent } from 'react';
 
-export default class SearchBar extends React.Component<Record<string, unknown>, { value: string }> {
-  constructor(props: Record<string, unknown>) {
+interface InputProps extends React.HTMLProps<HTMLInputElement> {}
+
+export default class SearchBar extends React.Component<InputProps, { value: string }> {
+  constructor(props: InputProps) {
     super(props);
     this.state = {
       value: localStorage.getItem('value') || '',

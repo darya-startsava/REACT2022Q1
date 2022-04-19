@@ -1,9 +1,11 @@
 import React from 'react';
 
-const FileInput = React.forwardRef<HTMLInputElement, Record<string, unknown>>((props, ref) => (
+interface InputProps extends React.HTMLProps<HTMLInputElement> {}
+
+const FileInput = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => (
   <label className="mb-2">
     Upload file:
-    <input type="File" ref={ref} {...props} />
+    <input type="File" className="mx-1" ref={ref} {...props} />
   </label>
 ));
 

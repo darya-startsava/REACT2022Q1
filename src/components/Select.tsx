@@ -1,8 +1,10 @@
 import React from 'react';
 
-const Select = React.forwardRef<HTMLSelectElement, Record<string, unknown>>((props, ref) => (
+interface SelectProps extends React.HTMLProps<HTMLSelectElement> {}
+
+const Select = React.forwardRef<HTMLSelectElement, SelectProps>((props, ref) => (
   <label>
-    Country of Birth:&nbsp;
+    Country of Birth:
     <select className="form-select" ref={ref} {...props}>
       <option value="">--choose country--</option>
       <option value="USA">USA</option>

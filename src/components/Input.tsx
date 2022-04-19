@@ -1,8 +1,10 @@
 import React from 'react';
 
-const Input = React.forwardRef<HTMLInputElement, Record<string, unknown>>((props, ref) => (
+interface InputProps extends React.HTMLProps<HTMLInputElement> {}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => (
   <label className="form-label">
-    Name:&nbsp;
+    Name:
     <input className="form-control" type="text" ref={ref} {...props} />
   </label>
 ));

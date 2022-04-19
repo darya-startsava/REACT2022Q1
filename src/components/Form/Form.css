@@ -1,0 +1,9 @@
+.error-message {
+  font-size: 12px;
+  color: red;
+}
+
+.success-message {
+  font-size: 20px;
+  color: green;
+}
