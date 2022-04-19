@@ -2,17 +2,18 @@
 
 exports[`Card should contain full information about film 1`] = `
 <div>
-  <div>
+  <div
+    class="my-1"
+  >
     <img
       alt="poster"
-      height="auto"
+      class="card-image"
       src="posters/inception.jpg"
-      width="200"
     />
-    <h5>
-      “
+    <h5
+      class="card-title"
+    >
       Inception
-      ”
     </h5>
     <p>
       2010
@@ -24,15 +25,7 @@ exports[`Card should contain full information about film 1`] = `
     </p>
     <p>
       Starring: 
-      Leonardo DiCaprio
-      Ken Watanabe
-      Joseph Gordon-Levitt
-      Marion Cotillard
-      Elliot Page
-      Tom Hardy
-      Cillian Murphy
-      Tom Berenger
-      Michael Caine
+      Leonardo DiCaprio, Ken Watanabe, Joseph Gordon-Levitt, Marion Cotillard, Elliot Page, Tom Hardy, Cillian Murphy, Tom Berenger, Michael Caine
     </p>
     <p>
       IMDb: 

@@ -203,26 +203,22 @@ exports[`form should create 3 cards if submit 3 times 1`] = `
     </div>
   </form>
   <ul
-    class="list-group list-group-horizontal"
+    class="list-group list-group-horizontal container"
   >
     <li
-      class="list-group-item"
+      class="list-group-item col-3"
     >
       <div
-        class="card"
-        style="width: 200px;"
+        class="my-1"
       >
-        <img
-          alt="avatar"
-          height="auto"
-          width="200"
-        />
         <h5
           class="card-title"
         >
           Name
         </h5>
-        female
+        <p>
+          female
+        </p>
         <p>
           Date of birth: 
           2021-04-04
@@ -238,23 +234,19 @@ exports[`form should create 3 cards if submit 3 times 1`] = `
       </div>
     </li>
     <li
-      class="list-group-item"
+      class="list-group-item col-3"
     >
       <div
-        class="card"
-        style="width: 200px;"
+        class="my-1"
       >
-        <img
-          alt="avatar"
-          height="auto"
-          width="200"
-        />
         <h5
           class="card-title"
         >
           Name
         </h5>
-        female
+        <p>
+          female
+        </p>
         <p>
           Date of birth: 
           2021-04-04
@@ -270,23 +262,19 @@ exports[`form should create 3 cards if submit 3 times 1`] = `
       </div>
     </li>
     <li
-      class="list-group-item"
+      class="list-group-item col-3"
     >
       <div
-        class="card"
-        style="width: 200px;"
+        class="my-1"
       >
-        <img
-          alt="avatar"
-          height="auto"
-          width="200"
-        />
         <h5
           class="card-title"
         >
           Name
         </h5>
-        female
+        <p>
+          female
+        </p>
         <p>
           Date of birth: 
           2021-04-04
@@ -508,26 +496,22 @@ exports[`form should create a new card if all fields are filled 1`] = `
     </div>
   </form>
   <ul
-    class="list-group list-group-horizontal"
+    class="list-group list-group-horizontal container"
   >
     <li
-      class="list-group-item"
+      class="list-group-item col-3"
     >
       <div
-        class="card"
-        style="width: 200px;"
+        class="my-1"
       >
-        <img
-          alt="avatar"
-          height="auto"
-          width="200"
-        />
         <h5
           class="card-title"
         >
           Name
         </h5>
-        female
+        <p>
+          female
+        </p>
         <p>
           Date of birth: 
           2021-04-04
@@ -754,7 +738,7 @@ exports[`form should show error messages for empty fields, and shouldn't show th
     />
   </form>
   <ul
-    class="list-group list-group-horizontal"
+    class="list-group list-group-horizontal container"
   />
 </div>
 `;
@@ -967,7 +951,7 @@ exports[`form should show error messages for empty fields, and shouldn't show th
     />
   </form>
   <ul
-    class="list-group list-group-horizontal"
+    class="list-group list-group-horizontal container"
   />
 </div>
 `;

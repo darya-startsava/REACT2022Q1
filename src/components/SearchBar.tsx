@@ -19,7 +19,7 @@ export default class SearchBar extends React.Component<Record<string, unknown>, 
 
   render() {
     return (
-      <label>
+      <label className="my-2">
         <input
           type="text"
           placeholder="Search bar"

@@ -5,11 +5,11 @@ import Select from './Select';
 import RadioInput from './RadioInput';
 import CheckboxInput from './CheckboxInput';
 import FileInput from './FileInput';
-import CardListFromFormPage from './CardListFromFormPage';
-import CardFromFormPageType from '../types/card-from-form-page';
+import CardList from './CardList';
+import Card from '../types/card';
 
 type State = {
-  data: CardFromFormPageType[];
+  data: Card[];
   successMessage: string;
   nameError: string;
   dateError: string;
@@ -109,6 +109,7 @@ export default class Form extends React.Component<{}, State> {
       const input = this.checkboxInputRef.current?.children[i].children[0] as HTMLInputElement;
       if (input.checked) {
         genres.push(input.value);
+        break;
       }
     }
     if (!this.selectRef.current?.value) {
@@ -167,7 +168,7 @@ export default class Form extends React.Component<{}, State> {
           return {
             data: state.data.concat({
               id: state.data.length,
-              image: URL.createObjectURL(fileToCreateUrl),
+              uploadedImage: URL.createObjectURL(fileToCreateUrl),
               name: this.inputRef.current?.value,
               gender: gender,
               dateOfBirth: this.dateInputRef.current?.value,
@@ -233,7 +234,7 @@ export default class Form extends React.Component<{}, State> {
           </button>
           <div style={{ fontSize: 20, color: 'green' }}>{this.state.successMessage}</div>
         </form>
-        <CardListFromFormPage data={this.state.data} />
+        <CardList data={this.state.data} />
       </>
     );
   }

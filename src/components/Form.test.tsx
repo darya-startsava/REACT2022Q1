@@ -1,5 +1,5 @@
 import Form from './Form';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('form', () => {
@@ -17,7 +17,7 @@ describe('form', () => {
     const { container } = render(<Form />);
     const file = new File(['hello'], 'hello.png', { type: 'image/png' });
 
-    userEvent.selectOptions(getCountry(), within(getCountry()).getByRole('option', { name: 'UK' }));
+    userEvent.selectOptions(getCountry(), ['UK']);
     userEvent.click(getGenres());
     userEvent.click(screen.getByRole('button', { name: /Submit/i }));
     userEvent.upload(getImage(), file);
@@ -77,7 +77,7 @@ function completeForm() {
   userEvent.click(getGender());
   userEvent.type(getDate(), '2021-04-04');
   const file = new File(['hello'], 'hello.png', { type: 'image/png' });
-  userEvent.selectOptions(getCountry(), within(getCountry()).getByRole('option', { name: 'UK' }));
+  userEvent.selectOptions(getCountry(), ['UK']);
   userEvent.click(getGenres());
   userEvent.upload(getImage(), file);
   userEvent.click(screen.getByRole('button', { name: /Submit/i }));

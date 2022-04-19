@@ -1,11 +1,11 @@
-import filmsInformation from '../data/films-information';
-import Card from './Card';
+import Card from './Card/Card';
+import CardType from '../types/card';
 
-export default function CardList() {
+export default function CardList({ data }: { data: CardType[] }) {
   return (
-    <ul>
-      {filmsInformation.map((item) => (
-        <li key={item.id}>
+    <ul className="list-group list-group-horizontal container">
+      {data.map((item) => (
+        <li className="list-group-item col-3" key={item.id}>
           <Card {...item} />
         </li>
       ))}
