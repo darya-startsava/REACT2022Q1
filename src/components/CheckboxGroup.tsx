@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface InputProps extends React.HTMLProps<HTMLInputElement> {}
+interface DivProps extends React.HTMLProps<HTMLDivElement> {}
 
-const CheckboxGroup = React.forwardRef<HTMLDivElement, InputProps>((props, ref) => (
+const CheckboxGroup = React.forwardRef<HTMLDivElement, DivProps>((props, ref) => (
   <div className="mt-2" ref={ref} {...props}>
     Movie genres:
     <label className="mx-1">

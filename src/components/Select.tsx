@@ -5,8 +5,10 @@ interface SelectProps extends React.HTMLProps<HTMLSelectElement> {}
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>((props, ref) => (
   <label>
     Country of Birth:
-    <select className="form-select" ref={ref} {...props}>
-      <option value="">--choose country--</option>
+    <select defaultValue={'DEFAULT'} className="form-select" ref={ref} {...props}>
+      <option value="DEFAULT" disabled>
+        --choose country--
+      </option>
       <option value="USA">USA</option>
       <option value="UK">UK</option>
       <option value="Canada">Canada</option>

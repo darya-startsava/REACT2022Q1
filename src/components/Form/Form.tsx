@@ -115,7 +115,7 @@ export default class Form extends React.Component<FormProps, State> {
         break;
       }
     }
-    if (!this.selectRef.current?.value) {
+    if (this.selectRef.current?.value === 'DEFAULT') {
       countryError = 'Choose country of birth';
     }
     if (!genres.length) {

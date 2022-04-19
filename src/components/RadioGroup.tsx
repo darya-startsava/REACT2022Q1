@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface InputProps extends React.HTMLProps<HTMLInputElement> {}
+interface DivProps extends React.HTMLProps<HTMLDivElement> {}
 
-const RadioGroup = React.forwardRef<HTMLDivElement, InputProps>((props, ref) => (
+const RadioGroup = React.forwardRef<HTMLDivElement, DivProps>((props, ref) => (
   <div ref={ref} {...props}>
     Gender:
     <label className="mx-1">

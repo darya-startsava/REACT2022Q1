@@ -61,7 +61,9 @@ exports[`form should create 3 cards if submit 3 times 1`] = `
         class="form-select"
       >
         <option
-          value=""
+          disabled=""
+          selected=""
+          value="DEFAULT"
         >
           --choose country--
         </option>
@@ -349,7 +351,9 @@ exports[`form should create a new card if all fields are filled 1`] = `
         class="form-select"
       >
         <option
-          value=""
+          disabled=""
+          selected=""
+          value="DEFAULT"
         >
           --choose country--
         </option>
@@ -581,7 +585,9 @@ exports[`form should show error messages for empty fields, but shouldn't show th
         class="form-select"
       >
         <option
-          value=""
+          disabled=""
+          selected=""
+          value="DEFAULT"
         >
           --choose country--
         </option>
@@ -795,7 +801,9 @@ exports[`form should show error messages for empty fields, but shouldn't show th
         class="form-select"
       >
         <option
-          value=""
+          disabled=""
+          selected=""
+          value="DEFAULT"
         >
           --choose country--
         </option>
