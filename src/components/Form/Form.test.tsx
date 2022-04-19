@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('form', () => {
-  it("should show error messages for empty fields, and shouldn't show them for completed fields(1-3)", () => {
+  it("should show error messages for empty fields, but shouldn't show them for completed fields(1-3)", () => {
     const { container } = render(<Form />);
 
     userEvent.type(getName(), 'Name');
@@ -13,7 +13,7 @@ describe('form', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("should show error messages for empty fields, and shouldn't show them for completed fields(4-6)", () => {
+  it("should show error messages for empty fields, but shouldn't show them for completed fields(4-6)", () => {
     const { container } = render(<Form />);
     const file = new File(['hello'], 'hello.png', { type: 'image/png' });
 

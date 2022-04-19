@@ -520,7 +520,7 @@ exports[`form should create a new card if all fields are filled 1`] = `
 </div>
 `;
 
-exports[`form should show error messages for empty fields, and shouldn't show them for completed fields(1-3) 1`] = `
+exports[`form should show error messages for empty fields, but shouldn't show them for completed fields(1-3) 1`] = `
 <div>
   <form>
     <label
@@ -728,7 +728,7 @@ exports[`form should show error messages for empty fields, and shouldn't show th
 </div>
 `;
 
-exports[`form should show error messages for empty fields, and shouldn't show them for completed fields(4-6) 1`] = `
+exports[`form should show error messages for empty fields, but shouldn't show them for completed fields(4-6) 1`] = `
 <div>
   <form>
     <label
