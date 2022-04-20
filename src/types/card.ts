@@ -12,6 +12,9 @@ type CardType = {
   dateOfBirth?: string | undefined;
   countryOfBirth?: string | undefined;
   movieGenres?: Array<string>;
+  overview?: string;
+  releaseDate?: string;
+  voteAverage?: string;
 };
 
 export default CardType;

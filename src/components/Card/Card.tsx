@@ -18,7 +18,7 @@ export default function Card({
 }: CardType) {
   return (
     <div className="my-1">
-      {image && <img src={`posters/${image}`} className="card-image" alt="poster" />}
+      {image && <img src={image} className="card-image" alt="poster" />}
       {uploadedImage && <img src={uploadedImage} className="card-image" alt="avatar" />}
       <h5 className="card-title">{name}</h5>
       {year && <p>{year} year</p>}
