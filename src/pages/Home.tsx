@@ -3,12 +3,15 @@ import CardList from '../components/CardList';
 import SearchBar from '../components/SearchBar';
 import constants from '../constants';
 import CardType from '../types/card';
+import Modal from '../components/Modal';
 
 interface DivProps extends React.HTMLProps<HTMLDivElement> {}
 
 type State = {
   data: CardType[];
+  modalData: CardType | null;
   isLoaded: boolean;
+  showModal: boolean;
 };
 
 export default class Home extends React.Component<DivProps, State> {
@@ -16,10 +19,31 @@ export default class Home extends React.Component<DivProps, State> {
     super(props);
     this.state = {
       data: [],
+      modalData: null,
       isLoaded: false,
+      showModal: false,
     };
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleHide = this.handleHide.bind(this);
   }
+
+  handleShow(event: React.MouseEvent<HTMLDivElement>) {
+    const target = event.target as HTMLDListElement;
+    const data = this.state.data;
+    for (let i = 0; i < data.length; i++) {
+      if (target.closest('li')?.id === data[i].id.toString()) {
+        this.setState({ modalData: data[i] });
+        break;
+      }
+    }
+    this.setState({ showModal: true });
+  }
+
+  handleHide() {
+    this.setState({ showModal: false });
+  }
+
   async componentDidMount() {
     try {
       const response = await fetch(
@@ -53,12 +77,25 @@ export default class Home extends React.Component<DivProps, State> {
   }
 
   render() {
+    const modal = this.state.showModal ? (
+      <Modal>
+        <CardList data={[this.state.modalData!]} />
+        <button onClick={this.handleHide}>Hide modal</button>
+      </Modal>
+    ) : null;
     return (
-      <div data-testid="home-page">
+      <div style={{ overflow: 'hidden' }} data-testid="home-page">
         <h1>Home</h1>
         <SearchBar />
+        {modal}
         <div>
-          {!this.state.isLoaded ? <div> Loading...</div> : <CardList data={this.state.data} />}
+          {!this.state.isLoaded ? (
+            <div> Loading...</div>
+          ) : (
+            <div onClick={this.handleShow}>
+              <CardList data={this.state.data} />
+            </div>
+          )}
         </div>
       </div>
     );
