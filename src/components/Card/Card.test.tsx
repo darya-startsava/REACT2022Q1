@@ -24,6 +24,7 @@ describe('Card', () => {
         ]}
         imdb={8.8}
         oscars={4}
+        isModal={false}
       />
     );
     expect(container).toMatchSnapshot();

@@ -2,3 +2,19 @@
   width: 200px;
   height: auto;
 }
+
+.card-item {
+  width: 200px;
+  height: auto;
+}
+
+.close-img {
+  width: 20px;
+  height: 20px;
+}
+
+.close-button {
+  border: none;
+  background-color: #fff;
+  margin-left: 180px;
+}

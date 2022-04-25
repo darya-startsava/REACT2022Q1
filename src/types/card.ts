@@ -15,6 +15,7 @@ type CardType = {
   overview?: string;
   releaseDate?: string;
   voteAverage?: string;
+  isModal: boolean;
 };
 
 export default CardType;

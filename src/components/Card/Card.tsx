@@ -15,9 +15,15 @@ export default function Card({
   dateOfBirth,
   countryOfBirth,
   movieGenres,
+  isModal,
 }: CardType) {
   return (
-    <div className="my-1">
+    <div className="my-1 card-item">
+      {isModal && (
+        <button className="close-button" aria-label="close modal">
+          <img src="./svg/close.svg" className="close-img" alt="" />
+        </button>
+      )}
       {image && <img src={image} className="card-image" alt="poster" />}
       {uploadedImage && <img src={uploadedImage} className="card-image" alt="avatar" />}
       <h5 className="card-title">{name}</h5>

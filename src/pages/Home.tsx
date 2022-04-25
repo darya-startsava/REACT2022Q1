@@ -3,7 +3,7 @@ import CardList from '../components/CardList';
 import SearchBar from '../components/SearchBar';
 import constants from '../constants';
 import CardType from '../types/card';
-import Modal from '../components/Modal';
+import Modal from '../components/Modal/Modal';
 
 interface DivProps extends React.HTMLProps<HTMLDivElement> {}
 
@@ -33,22 +33,23 @@ export default class Home extends React.Component<DivProps, State> {
     const data = this.state.data;
     for (let i = 0; i < data.length; i++) {
       if (target.closest('li')?.id === data[i].id.toString()) {
-        this.setState({ modalData: data[i] });
+        const dataModal = Object.assign({}, data[i], { isModal: true });
+        this.setState({ modalData: dataModal });
         break;
       }
     }
     this.setState({ showModal: true });
   }
 
-  handleHide() {
-    this.setState({ showModal: false });
+  handleHide(): void {
+    if (this.state.showModal === true) {
+      this.setState({ showModal: false });
+    }
   }
 
   async componentDidMount() {
     try {
-      const response = await fetch(
-        `${constants.url}/3/search/movie?${constants.key}&query=inception`
-      );
+      const response = await fetch(`${constants.url}/3/search/movie?${constants.key}&query=dune`);
       const data = await response.json();
       const selectedInformation: CardType[] = [];
       for (let i = 0; i < data.results.length; i++) {
@@ -68,6 +69,7 @@ export default class Home extends React.Component<DivProps, State> {
           overview: item.overview,
           releaseDate: item.release_date,
           voteAverage: item.vote_average,
+          isModal: false,
         });
       }
       this.setState({ data: selectedInformation, isLoaded: true });
@@ -78,13 +80,12 @@ export default class Home extends React.Component<DivProps, State> {
 
   render() {
     const modal = this.state.showModal ? (
-      <Modal>
+      <Modal onClose={this.handleHide}>
         <CardList data={[this.state.modalData!]} />
-        <button onClick={this.handleHide}>Hide modal</button>
       </Modal>
     ) : null;
     return (
-      <div style={{ overflow: 'hidden' }} data-testid="home-page">
+      <div data-testid="home-page">
         <h1>Home</h1>
         <SearchBar />
         {modal}
