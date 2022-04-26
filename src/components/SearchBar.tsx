@@ -1,7 +1,7 @@
 import React, { ChangeEvent, KeyboardEvent } from 'react';
 
 interface InputProps extends React.HTMLProps<HTMLInputElement> {
-  onEnter: Function;
+  onEnter?: Function;
 }
 
 export default class SearchBar extends React.Component<InputProps, { value: string }> {
@@ -23,7 +23,7 @@ export default class SearchBar extends React.Component<InputProps, { value: stri
   }
 
   handleKeyPress(event: KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && this.props.onEnter) {
       localStorage.setItem('value', this.state.value);
       this.props.onEnter();
     }

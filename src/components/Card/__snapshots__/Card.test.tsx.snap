@@ -3,15 +3,15 @@
 exports[`Card should contain full information about film 1`] = `
 <div>
   <div
-    class="my-1"
+    class="my-1 d-flex flex-column card-item"
   >
     <img
       alt="poster"
-      class="card-image"
-      src="posters/inception.jpg"
+      class="align-self-center card-image"
+      src="inception.jpg"
     />
     <h5
-      class="card-title"
+      class="align-self-center card-title"
     >
       Inception
     </h5>
