@@ -26,6 +26,7 @@ export default class Home extends React.Component<DivProps, State> {
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleHide = this.handleHide.bind(this);
+    this.sendFetch = this.sendFetch.bind(this);
   }
 
   handleShow(event: React.MouseEvent<HTMLDivElement>) {
@@ -48,8 +49,17 @@ export default class Home extends React.Component<DivProps, State> {
   }
 
   async componentDidMount() {
+    if (localStorage.getItem('value')) {
+      this.sendFetch(localStorage.getItem('value')!);
+    }
+  }
+
+  async sendFetch(value: string) {
+    this.setState({ isLoaded: false });
     try {
-      const response = await fetch(`${constants.url}/3/search/movie?${constants.key}&query=dune`);
+      const response = await fetch(
+        `${constants.url}/3/search/movie?${constants.key}&query=${value}`
+      );
       const data = await response.json();
       const selectedInformation: CardType[] = [];
       for (let i = 0; i < data.results.length; i++) {
@@ -87,10 +97,17 @@ export default class Home extends React.Component<DivProps, State> {
     return (
       <div data-testid="home-page">
         <h1>Home</h1>
-        <SearchBar />
+        <SearchBar
+          onEnter={() => {
+            if (localStorage.getItem('value')) {
+              this.sendFetch(localStorage.getItem('value')!);
+            }
+          }}
+        />
         {modal}
         <div>
-          {!this.state.isLoaded ? (
+          {!localStorage.getItem('value') && <div>Search movie by title</div>}
+          {localStorage.getItem('value') && !this.state.isLoaded ? (
             <div> Loading...</div>
           ) : (
             <div onClick={this.handleShow}>

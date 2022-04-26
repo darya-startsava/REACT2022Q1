@@ -35,7 +35,6 @@ export default class Modal extends React.Component<ModalProps> {
 
   handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    console.log(target);
     if (
       target.className === 'overlay' ||
       target.className === 'close-img' ||

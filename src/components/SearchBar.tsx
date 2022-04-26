@@ -1,6 +1,8 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, KeyboardEvent } from 'react';
 
-interface InputProps extends React.HTMLProps<HTMLInputElement> {}
+interface InputProps extends React.HTMLProps<HTMLInputElement> {
+  onEnter: Function;
+}
 
 export default class SearchBar extends React.Component<InputProps, { value: string }> {
   constructor(props: InputProps) {
@@ -9,6 +11,7 @@ export default class SearchBar extends React.Component<InputProps, { value: stri
       value: localStorage.getItem('value') || '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentWillUnmount() {
@@ -19,6 +22,13 @@ export default class SearchBar extends React.Component<InputProps, { value: stri
     this.setState({ value: event.target.value });
   }
 
+  handleKeyPress(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      localStorage.setItem('value', this.state.value);
+      this.props.onEnter();
+    }
+  }
+
   render() {
     return (
       <label className="my-2">
@@ -27,6 +37,7 @@ export default class SearchBar extends React.Component<InputProps, { value: stri
           placeholder="Search bar"
           value={this.state.value}
           onChange={this.handleChange}
+          onKeyPress={this.handleKeyPress}
         />
       </label>
     );
