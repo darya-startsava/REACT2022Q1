@@ -2,37 +2,10 @@ import { render, screen } from '@testing-library/react';
 import SearchBar from './SearchBar';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
+import LocalStorageMock from '../mocks/localStorageMock';
 
 describe('Search bar', () => {
   beforeEach(() => {
-    class LocalStorageMock {
-      store: Record<string, string>;
-      length = 0;
-      constructor() {
-        this.store = {};
-      }
-
-      key(index: number) {
-        return Object.keys(this.store)[index];
-      }
-
-      clear() {
-        this.store = {};
-      }
-
-      getItem(key: string) {
-        return this.store[key] || null;
-      }
-
-      setItem(key: string, value: string) {
-        this.store[key] = String(value);
-      }
-
-      removeItem(key: string) {
-        delete this.store[key];
-      }
-    }
-
     Object.defineProperty(global, '_localStorage', {
       value: new LocalStorageMock(),
       writable: true,

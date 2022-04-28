@@ -5,37 +5,10 @@ import '@testing-library/jest-dom';
 import Home from './Home';
 import userEvent from '@testing-library/user-event';
 import constants from '../constants';
+import LocalStorageMock from '../mocks/localStorageMock';
 
 describe('Page Home', () => {
   beforeEach(() => {
-    class LocalStorageMock {
-      store: Record<string, string>;
-      length = 0;
-      constructor() {
-        this.store = {};
-      }
-
-      key(index: number) {
-        return Object.keys(this.store)[index];
-      }
-
-      clear() {
-        this.store = {};
-      }
-
-      getItem(key: string) {
-        return this.store[key] || null;
-      }
-
-      setItem(key: string, value: string) {
-        this.store[key] = String(value);
-      }
-
-      removeItem(key: string) {
-        delete this.store[key];
-      }
-    }
-
     Object.defineProperty(global, '_localStorage', {
       value: new LocalStorageMock(),
       writable: true,
