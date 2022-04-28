@@ -84,7 +84,8 @@ export default class Home extends React.Component<DivProps, State> {
       }
       this.setState({ data: selectedInformation, isLoaded: true });
     } catch (error) {
-      throw new Error();
+      this.setState({ isLoaded: false });
+      throw error;
     }
   }
 

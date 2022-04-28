@@ -4,6 +4,7 @@ exports[`Card should contain full information about film 1`] = `
 <div>
   <div
     class="my-1 d-flex flex-column card-item"
+    data-testid="card"
   >
     <img
       alt="poster"

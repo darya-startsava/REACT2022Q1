@@ -25,7 +25,7 @@ export default function Card({
     style = { width: 500 };
   }
   return (
-    <div className="my-1 d-flex flex-column card-item" style={style}>
+    <div className="my-1 d-flex flex-column card-item" style={style} data-testid="card">
       {isModal && (
         <button className="align-self-end close-button" aria-label="close modal">
           <img src="./svg/close.svg" className="close-img" alt="" />

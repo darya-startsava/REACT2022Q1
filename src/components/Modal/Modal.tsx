@@ -13,6 +13,7 @@ export default class Modal extends React.Component<ModalProps> {
     super(props);
     this.el = document.createElement('div');
     this.el.classList.add('overlay');
+    this.el.setAttribute('data-testid', 'overlay');
     this.el.onclick = (event: MouseEvent) => this.handleClick(event);
     this.closeModal = this.closeModal.bind(this);
     this.modalRoot = document.getElementById('modal-root') as HTMLElement;
