@@ -4,6 +4,7 @@ import SearchBar from '../components/SearchBar';
 import constants from '../constants';
 import CardType from '../types/card';
 import Modal from '../components/Modal/Modal';
+import getFilmsArray from '../Provider';
 
 interface DivProps extends React.HTMLProps<HTMLDivElement> {}
 
@@ -33,7 +34,7 @@ export default class Home extends React.Component<DivProps, State> {
     const target = event.target as HTMLDListElement;
     const data = this.state.data;
     for (let i = 0; i < data.length; i++) {
-      if (target.closest('li')?.id === data[i].id.toString()) {
+      if (target.closest('li')?.id === `card-${data[i].id.toString()}`) {
         const dataModal = Object.assign({}, data[i], { isModal: true });
         this.setState({ modalData: dataModal });
         break;
@@ -57,10 +58,7 @@ export default class Home extends React.Component<DivProps, State> {
   async sendFetch(value: string) {
     this.setState({ isLoaded: false });
     try {
-      const response = await fetch(
-        `${constants.url}/3/search/movie?${constants.key}&query=${value}`
-      );
-      const data = await response.json();
+      const data = await getFilmsArray(value);
       const selectedInformation: CardType[] = [];
       for (let i = 0; i < data.results.length; i++) {
         const item = data.results[i];

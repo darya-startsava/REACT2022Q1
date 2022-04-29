@@ -3,28 +3,31 @@ import { render } from '@testing-library/react';
 import Card from './Card';
 
 describe('Card', () => {
-  test('should contain full information about film', () => {
+  test('should contain limited information about film if it is not modal', () => {
     const { container } = render(
       <Card
-        id={3}
-        image="inception.jpg"
-        name="Inception"
-        year={2010}
-        director="Christopher Nolan"
-        actors={[
-          'Leonardo DiCaprio',
-          'Ken Watanabe',
-          'Joseph Gordon-Levitt',
-          'Marion Cotillard',
-          'Elliot Page',
-          'Tom Hardy',
-          'Cillian Murphy',
-          'Tom Berenger',
-          'Michael Caine',
-        ]}
-        imdb={8.8}
-        oscars={4}
+        id={0}
+        name="title0"
+        image="no-image.jpg"
+        overview="overview0"
+        releaseDate="release_date0"
+        voteAverage="0"
         isModal={false}
+      />
+    );
+    expect(container).toMatchSnapshot();
+  });
+
+  test('should contain full information about film if it is modal', () => {
+    const { container } = render(
+      <Card
+        id={0}
+        name="title0"
+        image="no-image.jpg"
+        overview="overview0"
+        releaseDate="release_date0"
+        voteAverage="0"
+        isModal={true}
       />
     );
     expect(container).toMatchSnapshot();

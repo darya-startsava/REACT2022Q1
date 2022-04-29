@@ -28,7 +28,7 @@ export default class Modal extends React.Component<ModalProps> {
   }
 
   closeModal() {
-    if (this.modalRoot.contains(this.el)) {
+    if (this.modalRoot?.contains(this.el)) {
       this.modalRoot.removeChild(this.el);
       this.props.onClose();
     }

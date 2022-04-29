@@ -1,6 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Card should contain full information about film 1`] = `
+exports[`Card should contain full information about film if it is modal 1`] = `
+<div>
+  <div
+    class="my-1 d-flex flex-column card-item"
+    data-testid="card"
+    style="width: 500px;"
+  >
+    <button
+      aria-label="close modal"
+      class="align-self-end close-button"
+    >
+      <img
+        alt=""
+        class="close-img"
+        src="./svg/close.svg"
+      />
+    </button>
+    <img
+      alt="poster"
+      class="align-self-center card-image"
+      src="no-image.jpg"
+    />
+    <h5
+      class="align-self-center card-title"
+    >
+      title0
+    </h5>
+    <p>
+      Overview: 
+      overview0
+    </p>
+    <p>
+      Release date: 
+      release_date0
+    </p>
+    <p>
+      Vote average: 
+      0
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Card should contain limited information about film if it is not modal 1`] = `
 <div>
   <div
     class="my-1 d-flex flex-column card-item"
@@ -9,34 +52,13 @@ exports[`Card should contain full information about film 1`] = `
     <img
       alt="poster"
       class="align-self-center card-image"
-      src="inception.jpg"
+      src="no-image.jpg"
     />
     <h5
       class="align-self-center card-title"
     >
-      Inception
+      title0
     </h5>
-    <p>
-      2010
-       year
-    </p>
-    <p>
-      Director: 
-      Christopher Nolan
-    </p>
-    <p>
-      Starring: 
-      Leonardo DiCaprio, Ken Watanabe, Joseph Gordon-Levitt, Marion Cotillard, Elliot Page, Tom Hardy, Cillian Murphy, Tom Berenger, Michael Caine
-    </p>
-    <p>
-      IMDb: 
-      8.8
-      /10
-    </p>
-    <p>
-      Oscars: 
-      4
-    </p>
   </div>
 </div>
 `;
