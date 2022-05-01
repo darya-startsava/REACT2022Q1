@@ -1,10 +1,11 @@
 import React from 'react';
-import CardList from '../components/CardList';
-import SearchBar from '../components/SearchBar';
-import constants from '../constants';
-import CardType from '../types/card';
-import Modal from '../components/Modal/Modal';
-import getFilmsArray from '../Provider';
+import './Home.css';
+import CardList from '../../components/CardList';
+import SearchBar from '../../components/SearchBar';
+import CardType from '../../types/card';
+import Modal from '../../components/Modal/Modal';
+import getFilmsArray from '../../Provider';
+import Card from '../../components/Card/Card';
 
 interface DivProps extends React.HTMLProps<HTMLDivElement> {}
 
@@ -30,12 +31,11 @@ export default class Home extends React.Component<DivProps, State> {
     this.sendFetch = this.sendFetch.bind(this);
   }
 
-  handleShow(event: React.MouseEvent<HTMLDivElement>) {
-    const target = event.target as HTMLDListElement;
+  handleShow(id: number) {
     const data = this.state.data;
     for (let i = 0; i < data.length; i++) {
-      if (target.closest('li')?.id === `card-${data[i].id.toString()}`) {
-        const dataModal = Object.assign({}, data[i], { isModal: true });
+      if (id === data[i].id) {
+        const dataModal = Object.assign({}, data[i], { isFull: true });
         this.setState({ modalData: dataModal });
         break;
       }
@@ -58,28 +58,7 @@ export default class Home extends React.Component<DivProps, State> {
   async sendFetch(value: string) {
     this.setState({ isLoaded: false });
     try {
-      const data = await getFilmsArray(value);
-      const selectedInformation: CardType[] = [];
-      for (let i = 0; i < data.results.length; i++) {
-        const item = data.results[i];
-        let imageUrl: string;
-        if (!item.poster_path) {
-          imageUrl = 'no-image.jpg';
-        } else {
-          const response = await fetch(constants.posterUrl + item.poster_path);
-          const imageBlob = await response.blob();
-          imageUrl = URL.createObjectURL(imageBlob);
-        }
-        selectedInformation.push({
-          id: item.id,
-          name: item.title,
-          image: imageUrl,
-          overview: item.overview,
-          releaseDate: item.release_date,
-          voteAverage: item.vote_average,
-          isModal: false,
-        });
-      }
+      const selectedInformation = await getFilmsArray(value);
       this.setState({ data: selectedInformation, isLoaded: true });
     } catch (error) {
       this.setState({ isLoaded: false });
@@ -90,7 +69,24 @@ export default class Home extends React.Component<DivProps, State> {
   render() {
     const modal = this.state.showModal ? (
       <Modal onClose={this.handleHide}>
-        <CardList data={[this.state.modalData!]} />
+        <div className="my-1 d-flex flex-column align-self-center modal-wrapper">
+          <button
+            className="align-self-end close-button"
+            id="close-button"
+            aria-label="close modal"
+          >
+            <img src="./svg/close.svg" className="close-img" alt="" />
+          </button>
+          <Card
+            id={this.state.modalData!.id}
+            name={this.state.modalData!.name}
+            image={this.state.modalData?.image}
+            overview={this.state.modalData?.overview}
+            releaseDate={this.state.modalData?.releaseDate}
+            voteAverage={this.state.modalData?.voteAverage}
+            isFull={this.state.modalData!.isFull}
+          />
+        </div>
       </Modal>
     ) : null;
     return (
@@ -109,8 +105,8 @@ export default class Home extends React.Component<DivProps, State> {
           {localStorage.getItem('value') && !this.state.isLoaded ? (
             <div> Loading...</div>
           ) : (
-            <div onClick={this.handleShow}>
-              <CardList data={this.state.data} />
+            <div>
+              <CardList data={this.state.data} onCardClick={this.handleShow} />
             </div>
           )}
         </div>

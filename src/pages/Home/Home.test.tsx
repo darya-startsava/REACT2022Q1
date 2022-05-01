@@ -4,8 +4,8 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Home from './Home';
 import userEvent from '@testing-library/user-event';
-import constants from '../constants';
-import LocalStorageMock from '../mocks/localStorageMock';
+import constants from '../../constants';
+import LocalStorageMock from '../../mocks/localStorageMock';
 
 describe('Page Home', () => {
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('Page Home', () => {
         overview: 'overview0',
         releaseDate: 'release_date0',
         voteAverage: '0',
-        isModal: false,
+        isFull: false,
       },
       {
         id: 1,
@@ -33,15 +33,13 @@ describe('Page Home', () => {
         overview: 'overview1',
         releaseDate: 'release_date1',
         voteAverage: '1',
-        isModal: false,
+        isFull: false,
       },
     ],
   };
 
   const server = setupServer(
-    rest.get(`${constants.url}/3/search/movie`, (req, res, ctx) => {
-      return res(ctx.json(data));
-    })
+    rest.get(`${constants.url}/3/search/movie`, (req, res, ctx) => res(ctx.json(data)))
   );
 
   const modalRoot = document.createElement('div');
@@ -81,6 +79,6 @@ describe('Page Home', () => {
     userEvent.click(card[0]);
     expect(screen.getByTestId('overlay')).toBeInTheDocument();
     userEvent.click(screen.getByTestId('overlay'));
-    expect(screen.queryByText('Overview: overview0')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('overlay')).not.toBeInTheDocument();
   });
 });

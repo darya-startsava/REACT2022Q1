@@ -204,7 +204,6 @@ exports[`form should create a new card if all fields are filled 1`] = `
   >
     <li
       class="list-group-item"
-      id="card-0"
     >
       <div
         class="my-1 d-flex flex-column card-item"

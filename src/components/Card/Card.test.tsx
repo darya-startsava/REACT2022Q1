@@ -12,7 +12,7 @@ describe('Card', () => {
         overview="overview0"
         releaseDate="release_date0"
         voteAverage="0"
-        isModal={false}
+        isFull={false}
       />
     );
     expect(container).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('Card', () => {
         overview="overview0"
         releaseDate="release_date0"
         voteAverage="0"
-        isModal={true}
+        isFull={true}
       />
     );
     expect(container).toMatchSnapshot();

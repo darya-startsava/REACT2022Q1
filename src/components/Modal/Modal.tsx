@@ -12,7 +12,7 @@ export default class Modal extends React.Component<ModalProps> {
   constructor(props: ModalProps) {
     super(props);
     this.el = document.createElement('div');
-    this.el.classList.add('overlay');
+    this.el.classList.add('overlay', 'd-flex', 'flex-column');
     this.el.setAttribute('data-testid', 'overlay');
     this.el.onclick = (event: MouseEvent) => this.handleClick(event);
     this.closeModal = this.closeModal.bind(this);
@@ -36,13 +36,7 @@ export default class Modal extends React.Component<ModalProps> {
 
   handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (
-      target.className === 'overlay' ||
-      target.className === 'close-img' ||
-      target.className === 'close-button' ||
-      target.className ===
-        'list-group list-group-horizontal container d-flex flex-wrap justify-content-center'
-    ) {
+    if (target === this.el || target.className === 'close-img' || target.id === 'close-button') {
       this.closeModal();
     }
   }

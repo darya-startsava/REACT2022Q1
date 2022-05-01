@@ -18,19 +18,14 @@ export default function Card({
   overview,
   releaseDate,
   voteAverage,
-  isModal,
+  isFull,
 }: CardType) {
   let style = {};
-  if (isModal) {
+  if (isFull) {
     style = { width: 500 };
   }
   return (
     <div className="my-1 d-flex flex-column card-item" style={style} data-testid="card">
-      {isModal && (
-        <button className="align-self-end close-button" aria-label="close modal">
-          <img src="./svg/close.svg" className="close-img" alt="" />
-        </button>
-      )}
       {image && <img src={image} className="align-self-center card-image" alt="poster" />}
       {uploadedImage && <img src={uploadedImage} className="card-image" alt="avatar" />}
       <h5 className="align-self-center card-title">{name}</h5>
@@ -43,9 +38,9 @@ export default function Card({
       {dateOfBirth && <p>Date of birth: {dateOfBirth}</p>}
       {countryOfBirth && <p>Country of birth: {countryOfBirth}</p>}
       {movieGenres && <p>Genres: {movieGenres ? movieGenres.join(', ') : ''}</p>}
-      {isModal && <p>Overview: {overview}</p>}
-      {isModal && <p>Release date: {releaseDate}</p>}
-      {isModal && <p>Vote average: {voteAverage}</p>}
+      {isFull && <p className="overview px-2">Overview: {overview}</p>}
+      {isFull && <p className="px-2">Release date: {releaseDate}</p>}
+      {isFull && <p className="px-2">Vote average: {voteAverage}</p>}
     </div>
   );
 }

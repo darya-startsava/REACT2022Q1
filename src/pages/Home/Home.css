@@ -1,0 +1,14 @@
+.modal-wrapper {
+  width: 500px;
+  background-color: #fff;
+}
+
+.close-img {
+  width: 20px;
+  height: 20px;
+}
+
+.close-button {
+  border: none;
+  background-color: #fff;
+}

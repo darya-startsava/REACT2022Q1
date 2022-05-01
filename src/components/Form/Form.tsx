@@ -175,7 +175,7 @@ export default class Form extends React.Component<FormProps, State> {
               dateOfBirth: this.dateInputRef.current?.value,
               countryOfBirth: this.selectRef.current?.value,
               movieGenres: genres,
-              isModal: false,
+              isFull: false,
             }),
             successMessage: 'Your data has been successfully saved',
           };
