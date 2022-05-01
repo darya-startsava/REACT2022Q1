@@ -69,24 +69,7 @@ export default class Home extends React.Component<DivProps, State> {
   render() {
     const modal = this.state.showModal ? (
       <Modal onClose={this.handleHide}>
-        <div className="my-1 d-flex flex-column align-self-center modal-wrapper">
-          <button
-            className="align-self-end close-button"
-            id="close-button"
-            aria-label="close modal"
-          >
-            <img src="./svg/close.svg" className="close-img" alt="" />
-          </button>
-          <Card
-            id={this.state.modalData!.id}
-            name={this.state.modalData!.name}
-            image={this.state.modalData?.image}
-            overview={this.state.modalData?.overview}
-            releaseDate={this.state.modalData?.releaseDate}
-            voteAverage={this.state.modalData?.voteAverage}
-            isFull={this.state.modalData!.isFull}
-          />
-        </div>
+        <Card {...(this.state.modalData as CardType)} />
       </Modal>
     ) : null;
     return (

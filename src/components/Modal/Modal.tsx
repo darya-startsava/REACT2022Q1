@@ -42,6 +42,14 @@ export default class Modal extends React.Component<ModalProps> {
   }
 
   render() {
-    return ReactDOM.createPortal(this.props.children, this.el);
+    return ReactDOM.createPortal(
+      <div className="my-1 d-flex flex-column align-self-center modal-wrapper">
+        <button className="align-self-end close-button" id="close-button" aria-label="close modal">
+          <img src="./svg/close.svg" className="close-img" alt="" />
+        </button>
+        {this.props.children}
+      </div>,
+      this.el
+    );
   }
 }
