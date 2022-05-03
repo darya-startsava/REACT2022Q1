@@ -23,6 +23,8 @@ export default function Card({
   let style = {};
   if (isFull) {
     style = { width: 500 };
+  } else {
+    style = { cursor: 'pointer' };
   }
   return (
     <div className="my-1 d-flex flex-column card-item" style={style} data-testid="card">

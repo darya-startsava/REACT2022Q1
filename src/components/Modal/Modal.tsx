@@ -1,47 +1,44 @@
-import React from 'react';
+import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
 
 interface ModalProps {
+  children: JSX.Element;
   onClose: Function;
 }
 
-export default class Modal extends React.Component<ModalProps> {
-  el: HTMLElement;
-  modalRoot: HTMLElement;
-  constructor(props: ModalProps) {
-    super(props);
-    this.el = document.createElement('div');
-    this.el.classList.add('overlay', 'd-flex', 'flex-column');
-    this.el.setAttribute('data-testid', 'overlay');
-    this.el.onclick = (event: MouseEvent) => this.handleClick(event);
-    this.closeModal = this.closeModal.bind(this);
-    this.modalRoot = document.getElementById('modal-root') as HTMLElement;
-  }
+export default function Modal(props: ModalProps) {
+  const el = document.createElement('div') as HTMLElement;
+  el.classList.add('overlay', 'd-flex', 'flex-column');
+  el.setAttribute('data-testid', 'overlay');
+  el.onclick = (event: MouseEvent) => handleClick(event);
+  const modalRoot = document.getElementById('modal-root') as HTMLElement;
 
-  componentDidMount() {
-    this.modalRoot?.appendChild(this.el);
-  }
+  useEffect(() => {
+    modalRoot?.appendChild(el);
+  });
 
-  componentWillUnmount() {
-    this.closeModal();
-  }
-
-  closeModal() {
-    if (this.modalRoot?.contains(this.el)) {
-      this.modalRoot.removeChild(this.el);
-      this.props.onClose();
+  function closeModal() {
+    if (modalRoot?.contains(el)) {
+      modalRoot.removeChild(el);
+      props.onClose();
     }
   }
 
-  handleClick(event: MouseEvent) {
+  function handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (target === this.el || target.className === 'close-img' || target.id === 'close-button') {
-      this.closeModal();
+    if (target === el || target.className === 'close-img' || target.id === 'close-button') {
+      closeModal();
     }
   }
 
-  render() {
-    return ReactDOM.createPortal(this.props.children, this.el);
-  }
+  return ReactDOM.createPortal(
+    <div className="my-1 d-flex flex-column align-self-center modal-wrapper">
+      <button className="align-self-end close-button" id="close-button" aria-label="close modal">
+        <img src="./svg/close.svg" className="close-img" alt="" />
+      </button>
+      {props.children}
+    </div>,
+    el
+  );
 }

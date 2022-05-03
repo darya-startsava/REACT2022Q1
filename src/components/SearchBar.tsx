@@ -34,7 +34,7 @@ export default class SearchBar extends React.Component<InputProps, { value: stri
       <label className="my-2">
         <input
           type="text"
-          placeholder="Search bar"
+          placeholder="Search movie by title"
           value={this.state.value}
           onChange={this.handleChange}
           onKeyPress={this.handleKeyPress}

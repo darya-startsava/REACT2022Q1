@@ -1,7 +1,7 @@
 import constants from './constants';
 import CardType from './types/card';
 
-export default async function getFilmsArray(value: string) {
+export default async function getFilmsArray(value: string): Promise<CardType[]> {
   const response = await fetch(`${constants.url}/3/search/movie?${constants.key}&query=${value}`);
   const data = await response.json();
   const selectedInformation: CardType[] = [];

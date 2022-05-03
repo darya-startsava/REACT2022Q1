@@ -1,5 +1,4 @@
-import React from 'react';
-import './Home.css';
+import { useState, useEffect } from 'react';
 import CardList from '../../components/CardList';
 import SearchBar from '../../components/SearchBar';
 import CardType from '../../types/card';
@@ -7,110 +6,73 @@ import Modal from '../../components/Modal/Modal';
 import getFilmsArray from '../../Provider';
 import Card from '../../components/Card/Card';
 
-interface DivProps extends React.HTMLProps<HTMLDivElement> {}
+export default function Home() {
+  const [data, setData] = useState<CardType[]>([]);
+  const [modalData, setModalData] = useState<CardType | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-type State = {
-  data: CardType[];
-  modalData: CardType | null;
-  isLoaded: boolean;
-  showModal: boolean;
-};
-
-export default class Home extends React.Component<DivProps, State> {
-  constructor(props: DivProps) {
-    super(props);
-    this.state = {
-      data: [],
-      modalData: null,
-      isLoaded: false,
-      showModal: false,
-    };
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.handleHide = this.handleHide.bind(this);
-    this.sendFetch = this.sendFetch.bind(this);
-  }
-
-  handleShow(id: number) {
-    const data = this.state.data;
+  function handleShow(id: number) {
     for (let i = 0; i < data.length; i++) {
       if (id === data[i].id) {
         const dataModal = Object.assign({}, data[i], { isFull: true });
-        this.setState({ modalData: dataModal });
+        setModalData(dataModal);
         break;
       }
     }
-    this.setState({ showModal: true });
+    setShowModal(true);
   }
 
-  handleHide(): void {
-    if (this.state.showModal === true) {
-      this.setState({ showModal: false });
+  function handleHide(): void {
+    if (showModal === true) {
+      setShowModal(false);
     }
   }
 
-  async componentDidMount() {
+  useEffect(() => {
     if (localStorage.getItem('value')) {
-      this.sendFetch(localStorage.getItem('value')!);
+      sendFetch(localStorage.getItem('value')!);
     }
-  }
+  }, []);
 
-  async sendFetch(value: string) {
-    this.setState({ isLoaded: false });
+  async function sendFetch(value: string) {
+    setIsLoaded(false);
     try {
       const selectedInformation = await getFilmsArray(value);
-      this.setState({ data: selectedInformation, isLoaded: true });
+      setData(selectedInformation);
+      setIsLoaded(true);
     } catch (error) {
-      this.setState({ isLoaded: false });
+      setIsLoaded(false);
       throw error;
     }
   }
 
-  render() {
-    const modal = this.state.showModal ? (
-      <Modal onClose={this.handleHide}>
-        <div className="my-1 d-flex flex-column align-self-center modal-wrapper">
-          <button
-            className="align-self-end close-button"
-            id="close-button"
-            aria-label="close modal"
-          >
-            <img src="./svg/close.svg" className="close-img" alt="" />
-          </button>
-          <Card
-            id={this.state.modalData!.id}
-            name={this.state.modalData!.name}
-            image={this.state.modalData?.image}
-            overview={this.state.modalData?.overview}
-            releaseDate={this.state.modalData?.releaseDate}
-            voteAverage={this.state.modalData?.voteAverage}
-            isFull={this.state.modalData!.isFull}
-          />
-        </div>
-      </Modal>
-    ) : null;
-    return (
-      <div data-testid="home-page">
-        <h1>Home</h1>
-        <SearchBar
-          onEnter={() => {
-            if (localStorage.getItem('value')) {
-              this.sendFetch(localStorage.getItem('value')!);
-            }
-          }}
-        />
-        {modal}
-        <div>
-          {!localStorage.getItem('value') && <div>Search movie by title</div>}
-          {localStorage.getItem('value') && !this.state.isLoaded ? (
-            <div> Loading...</div>
-          ) : (
-            <div>
-              <CardList data={this.state.data} onCardClick={this.handleShow} />
-            </div>
-          )}
-        </div>
+  return (
+    <div data-testid="home-page">
+      <h1>Home</h1>
+      <SearchBar
+        onEnter={() => {
+          if (localStorage.getItem('value')) {
+            sendFetch(localStorage.getItem('value')!);
+          }
+        }}
+      />
+      {showModal ? (
+        <Modal onClose={handleHide}>
+          <Card {...(modalData as CardType)} />
+        </Modal>
+      ) : null}
+      <div>
+        {!localStorage.getItem('value') && <div>Search movie by title</div>}
+        {localStorage.getItem('value') && !isLoaded ? (
+          <div> Loading...</div>
+        ) : (
+          <div>
+            <CardList data={data} onCardClick={handleShow} />
+            {data.length === 0 && <div>No results. Try another title</div>}
+          </div>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 }
