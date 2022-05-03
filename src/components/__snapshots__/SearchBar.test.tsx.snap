@@ -6,7 +6,7 @@ exports[`Search bar should show the value from local storage 1`] = `
     class="my-2"
   >
     <input
-      placeholder="Search bar"
+      placeholder="Search movie by title"
       type="text"
       value="test1"
     />

@@ -47,21 +47,26 @@ describe('Page Home', () => {
   document.body.append(modalRoot);
 
   beforeAll(() => server.listen());
-  afterEach(() => server.resetHandlers());
+  afterEach(() => {
+    server.resetHandlers();
+    if (screen.queryByTestId('overlay')) {
+      modalRoot.removeChild(screen.getByTestId('overlay'));
+    }
+  });
   afterAll(() => server.close());
 
   it('should draw cards if the request is submitted', async () => {
     render(<Home />);
-    const input = screen.queryByPlaceholderText('Search bar') as HTMLInputElement;
+    const input = screen.queryByPlaceholderText('Search movie by title') as HTMLInputElement;
     userEvent.type(input, 'title');
     userEvent.keyboard('{Enter}');
     const card = await screen.findAllByTestId('card');
     expect(card.length).toEqual(2);
   });
 
-  it('shoud open modal by clicking on the card', async () => {
+  it('should open modal by clicking on the card', async () => {
     render(<Home />);
-    const input = screen.queryByPlaceholderText('Search bar') as HTMLInputElement;
+    const input = screen.queryByPlaceholderText('Search movie by title') as HTMLInputElement;
     userEvent.type(input, 'title');
     userEvent.keyboard('{Enter}');
     const card = await screen.findAllByTestId('card');
@@ -70,9 +75,10 @@ describe('Page Home', () => {
     expect(screen.queryByText('Overview: overview1')).not.toBeInTheDocument();
   });
 
-  it('shoud close modal by clicking on the overlay', async () => {
+  it('should close modal by clicking on the overlay', async () => {
     render(<Home />);
-    const input = screen.queryByPlaceholderText('Search bar') as HTMLInputElement;
+
+    const input = screen.queryByPlaceholderText('Search movie by title') as HTMLInputElement;
     userEvent.type(input, 'title');
     userEvent.keyboard('{Enter}');
     const card = await screen.findAllByTestId('card');

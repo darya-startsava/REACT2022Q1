@@ -20,7 +20,7 @@ describe('Search bar', () => {
 
   it('should save the value to local storage when unmount', () => {
     const { unmount } = render(<SearchBar />);
-    const input = screen.queryByPlaceholderText('Search bar') as HTMLInputElement;
+    const input = screen.queryByPlaceholderText('Search movie by title') as HTMLInputElement;
     userEvent.type(input, 'test2');
     unmount();
     expect(global.localStorage.getItem('value')).toBe('test2');

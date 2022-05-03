@@ -44,6 +44,7 @@ exports[`Card should contain limited information about film if it is not modal 1
   <div
     class="my-1 d-flex flex-column card-item"
     data-testid="card"
+    style="cursor: pointer;"
   >
     <img
       alt="poster"
