@@ -1,12 +1,16 @@
 import React from 'react';
+import { useController, UseControllerProps } from 'react-hook-form';
+import FormValues from '../types/formValues';
 
-interface InputProps extends React.HTMLProps<HTMLInputElement> {}
+export default function Input(props: UseControllerProps<FormValues>) {
+  const { field } = useController(props);
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => (
-  <label className="form-label">
-    Name:
-    <input className="form-control" type="text" ref={ref} {...props} />
-  </label>
-));
-
-export default Input;
+  return (
+    <>
+      <label className="form-label">
+        {/* @ts-ignore */}
+        Name: <input className="form-control" {...field} placeholder={props.name} />
+      </label>
+    </>
+  );
+}

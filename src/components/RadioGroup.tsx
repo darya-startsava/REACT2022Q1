@@ -1,19 +1,21 @@
 import React from 'react';
+import { useForm, useController, UseControllerProps } from 'react-hook-form';
+import FormValues from '../types/formValues';
 
-interface DivProps extends React.HTMLProps<HTMLDivElement> {}
+export default function RadioGroup(props: UseControllerProps<FormValues>) {
+  const { field, fieldState } = useController(props);
 
-const RadioGroup = React.forwardRef<HTMLDivElement, DivProps>((props, ref) => (
-  <div ref={ref} {...props}>
-    Gender:
-    <label className="mx-1">
-      Male
-      <input className="mx-1" type="radio" name="gender" value="male" />
-    </label>
-    <label className="mx-1">
-      Female
-      <input className="mx-1" type="radio" name="gender" value="female" />
-    </label>
-  </div>
-));
-
-export default RadioGroup;
+  return (
+    <div {...field}>
+      Gender:
+      <label className="mx-1">
+        Male
+        <input className="mx-1" type="radio" name="gender" value="male" />
+      </label>
+      <label className="mx-1">
+        Female
+        <input className="mx-1" type="radio" name="gender" value="female" />
+      </label>
+    </div>
+  );
+}

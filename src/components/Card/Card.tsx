@@ -39,7 +39,7 @@ export default function Card({
       {gender && <p>{gender}</p>}
       {dateOfBirth && <p>Date of birth: {dateOfBirth}</p>}
       {countryOfBirth && <p>Country of birth: {countryOfBirth}</p>}
-      {movieGenres && <p>Genres: {movieGenres ? movieGenres.join(', ') : ''}</p>}
+      {movieGenres && <p>Genres: {movieGenres}</p>}
       {isFull && <p className="overview px-2">Overview: {overview}</p>}
       {isFull && <p className="px-2">Release date: {releaseDate}</p>}
       {isFull && <p className="px-2">Vote average: {voteAverage}</p>}

@@ -69,7 +69,9 @@ export default function Home() {
         ) : (
           <div>
             <CardList data={data} onCardClick={handleShow} />
-            {data.length === 0 && <div>No results. Try another title</div>}
+            {localStorage.getItem('value') && data.length === 0 && (
+              <div>No results. Try another title</div>
+            )}
           </div>
         )}
       </div>

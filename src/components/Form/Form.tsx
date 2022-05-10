@@ -1,237 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import './Form.css';
 import Input from '../Input';
-import DateInput from '../DateInput';
 import Select from '../Select';
 import RadioGroup from '../RadioGroup';
 import CheckboxGroup from '../CheckboxGroup';
-import FileInput from '../FileInput';
+import DateInput from '../DateInput';
 import CardList from '../CardList';
-import Card from '../../types/card';
-
-type State = {
-  data: Card[];
-  successMessage: string;
-  nameError: string;
-  dateError: string;
-  genderError: string;
-  countryError: string;
-  genresError: string;
-  imageError: string;
-  isSubmitButtonEnabled: boolean;
-};
-
-let gender = '';
-let genres: Array<string> = [];
-let fileToCreateUrl: File;
+import CardType from '../../types/card';
+import FormValues from '../../types/formValues';
 
 interface FormProps extends React.HTMLProps<HTMLFormElement> {}
 
-export default class Form extends React.Component<FormProps, State> {
-  formRef: React.RefObject<HTMLFormElement>;
-  inputRef: React.RefObject<HTMLInputElement>;
-  dateInputRef: React.RefObject<HTMLInputElement>;
-  selectRef: React.RefObject<HTMLSelectElement>;
-  radioGroupRef: React.RefObject<HTMLDivElement>;
-  checkboxGroupRef: React.RefObject<HTMLDivElement>;
-  fileInputRef: React.RefObject<HTMLInputElement>;
-  constructor(props: FormProps) {
-    super(props);
-    this.state = {
-      data: [],
-      nameError: '',
-      dateError: '',
-      genderError: '',
-      countryError: '',
-      genresError: '',
-      imageError: '',
-      successMessage: '',
-      isSubmitButtonEnabled: false,
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.validate = this.validate.bind(this);
-    this.formRef = React.createRef();
-    this.inputRef = React.createRef();
-    this.dateInputRef = React.createRef();
-    this.selectRef = React.createRef();
-    this.radioGroupRef = React.createRef();
-    this.checkboxGroupRef = React.createRef();
-    this.fileInputRef = React.createRef();
-  }
+export default function Form(props: FormProps) {
+  const [data, setData] = useState<CardType[]>([]);
 
-  handleChange() {
-    if (this.state.successMessage) {
-      this.setState({ successMessage: '' });
-    }
-    if (
-      !this.state.nameError &&
-      !this.state.dateError &&
-      !this.state.genderError &&
-      !this.state.countryError &&
-      !this.state.genresError &&
-      !this.state.imageError
-    ) {
-      this.setState({ isSubmitButtonEnabled: true });
-    }
-  }
+  const {
+    handleSubmit,
+    control,
+    register,
+    formState: { errors },
+  } = useForm<FormValues>({
+    defaultValues: {
+      name: '',
+    },
+    mode: 'onChange',
+  });
 
-  validate() {
-    let nameError = '';
-    let dateError = '';
-    let countryError = '';
-    let genderError = '';
-    let genresError = '';
-    let imageError = '';
-    if (
-      !this.inputRef.current?.value ||
-      (this.inputRef.current?.value && this.inputRef.current?.value.length <= 1)
-    ) {
-      nameError = 'This field requires more than 1 symbol';
-    }
-    if (!this.dateInputRef.current?.value) {
-      dateError = 'This field must be filled';
-    }
-    if (
-      this.dateInputRef.current?.value &&
-      Date.parse(this.dateInputRef.current!.value) >= Date.now()
-    ) {
-      dateError = 'Date must be earlier than today';
-    }
-
-    for (let i = 0; i < this.radioGroupRef.current!.children.length; i++) {
-      const input = this.radioGroupRef.current?.children[i].children[0] as HTMLInputElement;
-      if (input.checked) {
-        gender = input.value;
-      }
-    }
-    if (!gender) {
-      genderError = 'Choose gender';
-    }
-    for (let i = 0; i < this.checkboxGroupRef.current!.children.length; i++) {
-      const input = this.checkboxGroupRef.current?.children[i].children[0] as HTMLInputElement;
-      if (input.checked) {
-        genres.push(input.value);
-        break;
-      }
-    }
-    if (this.selectRef.current?.value === 'DEFAULT') {
-      countryError = 'Choose country of birth';
-    }
-    if (!genres.length) {
-      genresError = 'Choose at least one genre';
-    }
-    if (!this.fileInputRef.current?.files?.[0]) {
-      imageError = 'Add image';
-    }
-    if (!imageError && !this.fileInputRef.current?.files?.[0].name.match(/.jpg$|.png$/)) {
-      imageError = 'Add file with extension .jpg or .png';
-    }
-    if (nameError) {
-      this.setState({ nameError });
-    }
-    if (dateError) {
-      this.setState({ dateError });
-    }
-    if (genderError) {
-      this.setState({ genderError });
-    }
-    if (countryError) {
-      this.setState({ countryError });
-    }
-    if (genresError) {
-      this.setState({ genresError });
-    }
-    if (imageError) {
-      this.setState({ imageError });
-    }
-    if (nameError || dateError || genderError || countryError || genresError || imageError) {
-      this.setState({ isSubmitButtonEnabled: false });
-      return false;
-    }
-    this.setState({ nameError, dateError, genderError, genresError, countryError, imageError });
-    this.setState({ isSubmitButtonEnabled: true });
-    return true;
-  }
-
-  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    gender = '';
-    genres = [];
-    event.preventDefault();
-    if (this.state.successMessage) {
-      this.setState({ successMessage: '' });
-    }
-    const isValid = this.validate();
-    if (isValid) {
-      fileToCreateUrl = this.fileInputRef.current!.files![0];
-      this.setState(
-        (state) => {
-          return {
-            data: state.data.concat({
-              id: state.data.length,
-              uploadedImage: URL.createObjectURL(fileToCreateUrl),
-              name: this.inputRef.current?.value,
-              gender: gender,
-              dateOfBirth: this.dateInputRef.current?.value,
-              countryOfBirth: this.selectRef.current?.value,
-              movieGenres: genres,
-              isFull: false,
-            }),
-            successMessage: 'Your data has been successfully saved',
-          };
+  const onSubmit = (formValues: FormValues) => {
+    const uploadedImage = URL.createObjectURL(formValues.picture[0]);
+    setData([
+      Object.assign(
+        {},
+        {
+          name: formValues.name,
+          gender: formValues.gender,
+          dateOfBirth: formValues.dateOfBirth,
+          countryOfBirth: formValues.countryOfBirth,
+          movieGenres: formValues.movieGenres.split(' ,'),
+          uploadedImage,
         },
-        () => {
-          this.formRef.current?.reset();
-        }
-      );
-    }
-  }
+        { id: 0, isFull: false }
+      ),
+    ]);
+    console.log(data);
+  };
 
-  render() {
-    return (
-      <>
-        <form onSubmit={this.handleSubmit} ref={this.formRef}>
-          <Input
-            ref={this.inputRef}
-            onChange={() => this.setState({ nameError: '' }, this.handleChange)}
-          />
-          <div className="error-message mb-3">{this.state.nameError}</div>
-          <RadioGroup
-            ref={this.radioGroupRef}
-            onChange={() => this.setState({ genderError: '' }, this.handleChange)}
-          />
-          <div className="error-message mb-3">{this.state.genderError}</div>
-          <DateInput
-            ref={this.dateInputRef}
-            onChange={() => this.setState({ dateError: '' }, this.handleChange)}
-          />
-          <div className="error-message mb-3">{this.state.dateError}</div>
-          <Select
-            ref={this.selectRef}
-            onChange={() => this.setState({ countryError: '' }, this.handleChange)}
-          />
-          <div className="error-message mb-3">{this.state.countryError}</div>
-          <CheckboxGroup
-            ref={this.checkboxGroupRef}
-            onChange={() => this.setState({ genresError: '' }, this.handleChange)}
-          />
-          <div className="error-message mb-3">{this.state.genresError}</div>
-          <FileInput
-            ref={this.fileInputRef}
-            onChange={() => this.setState({ imageError: '' }, this.handleChange)}
-          />
-          <div className="error-message mb-3">{this.state.imageError}</div>
-          <button
-            disabled={!this.state.isSubmitButtonEnabled}
-            type="submit"
-            className="btn btn-primary"
-          >
-            Submit
-          </button>
-          <div className="success-message">{this.state.successMessage}</div>
-        </form>
-        <CardList data={this.state.data} />
-      </>
-    );
-  }
+  return (
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Input control={control} name="name" rules={{ required: true, minLength: 5 }} />
+        {errors.name?.type === 'required' && 'Name is required'}
+        {errors.name?.type === 'minLength' && 'This field requires more than 1 symbol'}
+        <RadioGroup control={control} name="gender" rules={{ required: true }} />
+        {errors.gender?.type === 'required' && 'Choose gender'}
+        <DateInput control={control} name="dateOfBirth" rules={{ required: true }} />
+        {errors.dateOfBirth?.type === 'required' && 'This field must be filled'}
+        <Select control={control} name="countryOfBirth" rules={{ required: true }} />
+        {errors.countryOfBirth?.type === 'required' && 'Country of Birth is required'}
+        <CheckboxGroup control={control} name="movieGenres" rules={{ required: true }} />
+        {errors.movieGenres?.type === 'required' && 'Choose at least one genre'}
+        <input {...register('picture')} type="file" name="picture" />
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+        {/* <div className="success-message">{this.state.successMessage}</div> */}
+      </form>
+      <CardList data={data || [{ name: '0', id: 0, isFull: false }]} />
+    </>
+  );
 }
