@@ -24,7 +24,8 @@ export default function Form(props: FormProps) {
   const onSubmit = (formData: FormValues) => {
     const movieGenres = formData?.movieGenres?.join(', ');
 
-    setData([
+    setData((data) => [
+      ...data,
       {
         ...formData,
         uploadedImage: URL.createObjectURL(formData.picture[0]),
