@@ -3,70 +3,130 @@ import { useForm } from 'react-hook-form';
 import './Form.css';
 import Input from '../Input';
 import Select from '../Select';
-import RadioGroup from '../RadioGroup';
-import CheckboxGroup from '../CheckboxGroup';
 import DateInput from '../DateInput';
+import FileInput from '../FileInput';
 import CardList from '../CardList';
 import CardType from '../../types/card';
 import FormValues from '../../types/formValues';
+import { ErrorMessage } from '@hookform/error-message';
+import movieGenres from '../../data/movie-genres';
 
 interface FormProps extends React.HTMLProps<HTMLFormElement> {}
 
 export default function Form(props: FormProps) {
   const [data, setData] = useState<CardType[]>([]);
-
   const {
-    handleSubmit,
-    control,
     register,
     formState: { errors },
-  } = useForm<FormValues>({
-    defaultValues: {
-      name: '',
-    },
-    mode: 'onChange',
-  });
+    handleSubmit,
+  } = useForm<FormValues>();
 
-  const onSubmit = (formValues: FormValues) => {
-    const uploadedImage = URL.createObjectURL(formValues.picture[0]);
+  const onSubmit = (formData: FormValues) => {
+    const movieGenres = formData?.movieGenres?.join(', ');
+
     setData([
-      Object.assign(
-        {},
-        {
-          name: formValues.name,
-          gender: formValues.gender,
-          dateOfBirth: formValues.dateOfBirth,
-          countryOfBirth: formValues.countryOfBirth,
-          movieGenres: formValues.movieGenres.split(' ,'),
-          uploadedImage,
-        },
-        { id: 0, isFull: false }
-      ),
+      {
+        ...formData,
+        uploadedImage: URL.createObjectURL(formData.picture[0]),
+        movieGenres,
+        id: 0,
+        isFull: false,
+      },
     ]);
-    console.log(data);
   };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input control={control} name="name" rules={{ required: true, minLength: 5 }} />
-        {errors.name?.type === 'required' && 'Name is required'}
-        {errors.name?.type === 'minLength' && 'This field requires more than 1 symbol'}
-        <RadioGroup control={control} name="gender" rules={{ required: true }} />
-        {errors.gender?.type === 'required' && 'Choose gender'}
-        <DateInput control={control} name="dateOfBirth" rules={{ required: true }} />
-        {errors.dateOfBirth?.type === 'required' && 'This field must be filled'}
-        <Select control={control} name="countryOfBirth" rules={{ required: true }} />
-        {errors.countryOfBirth?.type === 'required' && 'Country of Birth is required'}
-        <CheckboxGroup control={control} name="movieGenres" rules={{ required: true }} />
-        {errors.movieGenres?.type === 'required' && 'Choose at least one genre'}
-        <input {...register('picture')} type="file" name="picture" />
-        <button type="submit" className="btn btn-primary">
+        <Input
+          {...register('name', {
+            required: 'This field must be filled',
+            minLength: { value: 2, message: 'This field requires more than 1 symbol' },
+          })}
+        />
+        <div className="error-message mb-3">
+          <ErrorMessage errors={errors} name="name" />
+        </div>
+        <div>
+          Gender:
+          <label className="mx-1">
+            Male
+            <input
+              className="mx-1"
+              type="radio"
+              value="male"
+              {...register('gender', {
+                required: {
+                  value: true,
+                  message: 'Choose gender',
+                },
+              })}
+            />
+          </label>
+          <label className="mx-1">
+            Female
+            <input
+              className="mx-1"
+              type="radio"
+              value="female"
+              {...register('gender', {
+                required: {
+                  value: true,
+                  message: 'Choose gender',
+                },
+              })}
+            />
+          </label>
+        </div>
+        <div className="error-message mb-3">
+          <ErrorMessage errors={errors} name="gender" />
+        </div>
+        <DateInput {...register('dateOfBirth', { required: 'This field must be filled' })} />
+        <div className="error-message mb-3">
+          <ErrorMessage errors={errors} name="dateOfBirth" />
+        </div>
+        <Select {...register('countryOfBirth', { required: 'Choose country of birth' })} />
+        <div className="error-message mb-3">
+          <ErrorMessage errors={errors} name="countryOfBirth" />
+        </div>
+        <div className="mt-2">
+          Movie genres:
+          {movieGenres.map((item) => {
+            return (
+              <label key={item} className="mx-1">
+                {item}
+                <input
+                  className="mx-1"
+                  type="checkbox"
+                  value={item}
+                  {...register('movieGenres', {
+                    required: {
+                      value: true,
+                      message: 'Choose at least one genre',
+                    },
+                  })}
+                />
+              </label>
+            );
+          })}
+        </div>
+        <div className="error-message mb-3">
+          <ErrorMessage errors={errors} name="movieGenres" />
+        </div>
+        <FileInput {...register('picture', { required: 'This field must be filled' })} />
+        <div className="error-message mb-3">
+          <ErrorMessage errors={errors} name="picture" />
+        </div>
+        <button
+          // disabled={!this.state.isSubmitButtonEnabled}
+          type="submit"
+          className="btn btn-primary"
+        >
           Submit
         </button>
         {/* <div className="success-message">{this.state.successMessage}</div> */}
       </form>
-      <CardList data={data || [{ name: '0', id: 0, isFull: false }]} />
+      <CardList data={data} />
     </>
   );
 }

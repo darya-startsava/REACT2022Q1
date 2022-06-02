@@ -1,13 +1,12 @@
-import { useController, UseControllerProps } from 'react-hook-form';
-import FormValues from '../types/formValues';
+import React from 'react';
 
-export default function DateInput(props: UseControllerProps<FormValues>) {
-  const { field } = useController(props);
-  return (
-    <label className="form-label">
-      Date of Birth:
-      {/* @ts-ignore */}
-      <input className="form-control" type="date" {...field} placeholder={props.name} />
-    </label>
-  );
-}
+interface InputProps extends React.HTMLProps<HTMLInputElement> {}
+
+const DateInput = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => (
+  <label className="form-label">
+    Date of Birth:
+    <input className="form-control" type="date" ref={ref} {...props} />
+  </label>
+));
+
+export default DateInput;

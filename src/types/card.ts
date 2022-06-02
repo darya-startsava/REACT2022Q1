@@ -11,7 +11,7 @@ type CardType = {
   gender?: string;
   dateOfBirth?: string | undefined;
   countryOfBirth?: string | undefined;
-  movieGenres?: Array<string>;
+  movieGenres?: string;
   overview?: string;
   releaseDate?: string;
   voteAverage?: string;

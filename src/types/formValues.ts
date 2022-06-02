@@ -3,8 +3,12 @@ type FormValues = {
   gender: string;
   dateOfBirth: string;
   countryOfBirth: string;
-  movieGenres: string;
+  movieGenres?: Array<string>;
   picture: FileList;
-  uploadedImage?: string | undefined;
+  scienceFiction: string;
+  biopic: string;
+  disasterMovie: string;
+  fantasy: string;
+  periodDrama: string;
 };
 export default FormValues;
