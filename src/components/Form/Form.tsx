@@ -59,7 +59,7 @@ export default function Form(props: FormProps) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register('name', {
-            required: 'This field must be filled',
+            required: 'This field requires more than 1 symbol',
             minLength: { value: 2, message: 'This field requires more than 1 symbol' },
           })}
         />
@@ -140,7 +140,7 @@ export default function Form(props: FormProps) {
         </div>
         <FileInput
           {...register('picture', {
-            required: 'This field must be filled',
+            required: 'Add image',
             validate: (value) =>
               value?.[0].name.match(/.jpg$|.png$/) !== null ||
               'Add file with extension .jpg or .png',
