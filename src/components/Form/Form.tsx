@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './Form.css';
 import Input from '../Input';
@@ -15,26 +15,44 @@ interface FormProps extends React.HTMLProps<HTMLFormElement> {}
 
 export default function Form(props: FormProps) {
   const [data, setData] = useState<CardType[]>([]);
+  const [isNewCardCreatedNow, setIsNewCardCreatedNow] = useState<boolean>(false);
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful, isDirty },
     handleSubmit,
+    reset,
   } = useForm<FormValues>();
 
   const onSubmit = (formData: FormValues) => {
     const movieGenres = formData?.movieGenres?.join(', ');
-
+    console.log(formData.picture);
     setData((data) => [
       ...data,
       {
         ...formData,
-        uploadedImage: URL.createObjectURL(formData.picture[0]),
+        uploadedImage: URL.createObjectURL(formData.picture![0]),
         movieGenres,
-        id: 0,
+        id: data.length,
         isFull: false,
       },
     ]);
+    setIsNewCardCreatedNow(true);
   };
+
+  useEffect(() => {
+    if (isDirty) setIsNewCardCreatedNow(false);
+  }, [isDirty]);
+
+  useEffect(() => {
+    reset({
+      name: '',
+      gender: '',
+      dateOfBirth: '',
+      countryOfBirth: '',
+      movieGenres: [],
+      picture: null,
+    });
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <>
@@ -82,7 +100,13 @@ export default function Form(props: FormProps) {
         <div className="error-message mb-3">
           <ErrorMessage errors={errors} name="gender" />
         </div>
-        <DateInput {...register('dateOfBirth', { required: 'This field must be filled' })} />
+        <DateInput
+          {...register('dateOfBirth', {
+            required: 'This field must be filled',
+            validate: (value) =>
+              Date.parse(value) < Date.now() || 'Date must be earlier than today',
+          })}
+        />
         <div className="error-message mb-3">
           <ErrorMessage errors={errors} name="dateOfBirth" />
         </div>
@@ -114,18 +138,35 @@ export default function Form(props: FormProps) {
         <div className="error-message mb-3">
           <ErrorMessage errors={errors} name="movieGenres" />
         </div>
-        <FileInput {...register('picture', { required: 'This field must be filled' })} />
+        <FileInput
+          {...register('picture', {
+            required: 'This field must be filled',
+            validate: (value) =>
+              value?.[0].name.match(/.jpg$|.png$/) !== null ||
+              'Add file with extension .jpg or .png',
+          })}
+        />
         <div className="error-message mb-3">
           <ErrorMessage errors={errors} name="picture" />
         </div>
         <button
-          // disabled={!this.state.isSubmitButtonEnabled}
+          disabled={
+            !!errors.name ||
+            !!errors.gender ||
+            !!errors.dateOfBirth ||
+            !!errors.countryOfBirth ||
+            !!errors.movieGenres ||
+            !!errors.picture ||
+            !isDirty
+          }
           type="submit"
           className="btn btn-primary"
         >
           Submit
         </button>
-        {/* <div className="success-message">{this.state.successMessage}</div> */}
+        {isNewCardCreatedNow && (
+          <div className="success-message">Your data has been successfully saved</div>
+        )}
       </form>
       <CardList data={data} />
     </>

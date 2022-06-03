@@ -1,7 +1,7 @@
 type CardType = {
   id: number;
   image?: string;
-  uploadedImage?: string | undefined;
+  uploadedImage?: string | null | undefined;
   name: string | undefined;
   year?: number;
   director?: string;
