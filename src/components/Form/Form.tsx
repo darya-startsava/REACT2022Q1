@@ -25,7 +25,6 @@ export default function Form(props: FormProps) {
 
   const onSubmit = (formData: FormValues) => {
     const movieGenres = formData?.movieGenres?.join(', ');
-    console.log(formData.picture);
     setData((data) => [
       ...data,
       {
@@ -140,9 +139,8 @@ export default function Form(props: FormProps) {
         </div>
         <FileInput
           {...register('picture', {
-            required: 'Add image',
             validate: (value) =>
-              value?.[0].name.match(/.jpg$|.png$/) !== null ||
+              (value && value?.[0].name.match(/.jpg$|.png$/) !== null) ||
               'Add file with extension .jpg or .png',
           })}
         />

@@ -18,7 +18,7 @@ describe('form', () => {
       expect(
         screen.getByText('Choose country of birth') &&
           screen.getByText('Choose at least one genre') &&
-          screen.getByText('Add image')
+          screen.getByText('Add file with extension .jpg or .png')
       ).toBeInTheDocument();
     });
   });
@@ -59,32 +59,31 @@ describe('form', () => {
       expect(
         screen.queryByText('Choose country of birth') &&
           screen.queryByText('Choose at least one genre') &&
-          screen.queryByText('Add image')
+          screen.queryByText('Add file with extension .jpg or .png')
       ).not.toBeInTheDocument();
     });
   });
 
-  // it('should create a new card if all fields are filled', async () => {
-  //   render(<Form />);
+  it('should create a new card if all fields are filled', async () => {
+    render(<Form />);
 
-  //   completeForm();
+    completeForm();
+    await waitFor(() => {
+      expect(screen.getByRole('listitem')).toBeInTheDocument();
+    });
+  });
 
-  //   await waitFor(() => {
-  //     expect(screen.getAllByRole('listitem')).toBeInTheDocument();
-  //   });
-  // });
+  it('should create 3 cards if submit 3 times', async () => {
+    render(<Form />);
 
-  // it('should create 3 cards if submit 3 times', async () => {
-  //   render(<Form />);
+    for (let i = 1; i <= 3; i++) {
+      completeForm();
+    }
 
-  //   for (let i = 1; i <= 3; i++) {
-  //     completeForm();
-  //   }
-
-  //   await waitFor(() => {
-  //     expect(screen.getAllByRole('listitem').length).toEqual(fakeData.length);
-  //   });
-  // });
+    await waitFor(() => {
+      expect(screen.getAllByRole('listitem').length).toEqual(fakeData.length);
+    });
+  });
 });
 
 function getName() {
@@ -134,7 +133,7 @@ function completeFields456() {
 }
 
 function completeForm() {
-  global.URL.createObjectURL = jest.fn();
+  global.URL.createObjectURL = jest.fn(() => 'test');
   userEvent.type(getName(), 'Name');
   userEvent.click(getGender());
   userEvent.type(getDate(), '2021-04-04');
