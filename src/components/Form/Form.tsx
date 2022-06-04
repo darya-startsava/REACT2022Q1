@@ -148,15 +148,7 @@ export default function Form(props: FormProps) {
           <ErrorMessage errors={errors} name="picture" />
         </div>
         <button
-          disabled={
-            !!errors.name ||
-            !!errors.gender ||
-            !!errors.dateOfBirth ||
-            !!errors.countryOfBirth ||
-            !!errors.movieGenres ||
-            !!errors.picture ||
-            !isDirty
-          }
+          disabled={!!Object.keys(errors).length || !isDirty}
           type="submit"
           className="btn btn-primary"
         >
