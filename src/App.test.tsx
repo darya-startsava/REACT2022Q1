@@ -19,7 +19,7 @@ describe('router', () => {
     expect(screen.getByTestId('home-page')).toBeInTheDocument();
     const formsLink = screen.getByTestId('forms-link');
     userEvent.click(formsLink);
-    expect(screen.getByTestId('forms-page')).toBeInTheDocument();
+    expect(screen.queryByTestId('forms-page')).not.toBeInTheDocument();
   });
 
   it('should show error page if the link does not match any route', () => {
