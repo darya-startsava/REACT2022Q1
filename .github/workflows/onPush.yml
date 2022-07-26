@@ -20,7 +20,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        external_repository: darya-startsava/React-project-deploy
-        publish_branch: react-custom-app-state
-        publish_dir: ./build
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: darya-startsava/React-project-deploy
+          publish_branch: react-custom-app-state
+          publish_dir: ./build
