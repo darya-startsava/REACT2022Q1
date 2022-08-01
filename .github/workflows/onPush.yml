@@ -22,5 +22,5 @@ jobs:
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: darya-startsava/React-project-deploy
-          publish_branch: react-custom-app-state
+          publish_branch: gh-pages
           publish_dir: ./build
