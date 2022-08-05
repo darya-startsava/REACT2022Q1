@@ -11,10 +11,12 @@ import FormValues from '../../types/formValues';
 import { ErrorMessage } from '@hookform/error-message';
 import movieGenres from '../../data/movie-genres';
 
-interface FormProps extends React.HTMLProps<HTMLFormElement> {}
+interface FormProps {
+  state: CardType[];
+  onCreateCard: Function;
+}
 
-export default function Form(props: FormProps) {
-  const [data, setData] = useState<CardType[]>([]);
+export default function Form({ state, onCreateCard }: FormProps) {
   const [isNewCardCreatedNow, setIsNewCardCreatedNow] = useState<boolean>(false);
   const {
     register,
@@ -25,16 +27,14 @@ export default function Form(props: FormProps) {
 
   const onSubmit = (formData: FormValues) => {
     const movieGenres = formData?.movieGenres?.join(', ');
-    setData((data) => [
-      ...data,
-      {
-        ...formData,
-        uploadedImage: URL.createObjectURL(formData.picture![0]),
-        movieGenres,
-        id: data.length,
-        isFull: false,
-      },
-    ]);
+    const data = {
+      ...formData,
+      uploadedImage: URL.createObjectURL(formData.picture![0]),
+      movieGenres,
+      id: state.length,
+      isFull: false,
+    };
+    onCreateCard(data);
     setIsNewCardCreatedNow(true);
   };
 
@@ -158,7 +158,7 @@ export default function Form(props: FormProps) {
           <div className="success-message">Your data has been successfully saved</div>
         )}
       </form>
-      <CardList data={data} />
+      <CardList data={state} />
     </>
   );
 }
