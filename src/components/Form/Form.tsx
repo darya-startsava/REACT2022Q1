@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import './Form.css';
 import Input from '../Input';
@@ -6,17 +6,16 @@ import Select from '../Select';
 import DateInput from '../DateInput';
 import FileInput from '../FileInput';
 import CardList from '../CardList';
-import CardType from '../../types/card';
 import FormValues from '../../types/formValues';
 import { ErrorMessage } from '@hookform/error-message';
 import movieGenres from '../../data/movie-genres';
+import { CustomStore } from '../../store';
 
-interface FormProps {
-  state: CardType[];
-  onCreateCard: Function;
-}
+interface FormProps extends React.HTMLProps<HTMLFormElement> {}
 
-export default function Form({ state, onCreateCard }: FormProps) {
+export default function Form(props: FormProps) {
+  const { state, dispatch } = useContext(CustomStore);
+
   const [isNewCardCreatedNow, setIsNewCardCreatedNow] = useState<boolean>(false);
   const {
     register,
@@ -34,7 +33,7 @@ export default function Form({ state, onCreateCard }: FormProps) {
       id: state.length,
       isFull: false,
     };
-    onCreateCard(data);
+    dispatch({ type: 'addCard', payload: data });
     setIsNewCardCreatedNow(true);
   };
 
