@@ -5,18 +5,10 @@ import Router from './components/Router';
 import Header from './components/Header';
 import CardType from './types/card';
 import { CustomStore } from './store';
+import { reducer } from './reducer';
 
 function App() {
   const initialArg: CardType[] = [];
-
-  function reducer(state: CardType[] | [], action: { type: string; payload: CardType }) {
-    switch (action.type) {
-      case 'addCard':
-        return [...state, action.payload];
-      default:
-        throw new Error();
-    }
-  }
 
   const [state, dispatch] = useReducer(reducer, initialArg);
   return (

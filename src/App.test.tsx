@@ -1,7 +1,8 @@
 import App from './App';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
+import { completeForm, fakeData } from './testHelper';
 
 describe('router', () => {
   it('should handle url changes', () => {
@@ -29,5 +30,32 @@ describe('router', () => {
       </MemoryRouter>
     );
     expect(screen.getByTestId('error-page')).toBeInTheDocument();
+  });
+
+  it('should store cards if change page and return back', async () => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+    const formsLink = screen.getByTestId('forms-link');
+    userEvent.click(formsLink);
+
+    for (let i = 1; i <= 3; i++) {
+      completeForm();
+    }
+
+    const aboutUsLink = screen.getByTestId('about-us-link');
+    userEvent.click(aboutUsLink);
+
+    await waitFor(() => {
+      expect(screen.queryByRole('listitem')).not.toBeInTheDocument();
+    });
+
+    userEvent.click(formsLink);
+
+    await waitFor(() => {
+      expect(screen.getAllByRole('listitem').length).toEqual(fakeData.length);
+    });
   });
 });

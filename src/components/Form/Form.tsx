@@ -10,6 +10,7 @@ import FormValues from '../../types/formValues';
 import { ErrorMessage } from '@hookform/error-message';
 import movieGenres from '../../data/movie-genres';
 import { CustomStore } from '../../store';
+import nextId from 'react-id-generator';
 
 interface FormProps extends React.HTMLProps<HTMLFormElement> {}
 
@@ -30,7 +31,7 @@ export default function Form(props: FormProps) {
       ...formData,
       uploadedImage: URL.createObjectURL(formData.picture![0]),
       movieGenres,
-      id: state.length,
+      id: nextId(),
       isFull: false,
     };
     dispatch({ type: 'addCard', payload: data });
@@ -51,6 +52,10 @@ export default function Form(props: FormProps) {
       picture: null,
     });
   }, [isSubmitSuccessful, reset]);
+
+  useEffect(() => {
+    return () => setIsNewCardCreatedNow(false);
+  }, []);
 
   return (
     <>
