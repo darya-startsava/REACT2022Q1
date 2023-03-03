@@ -1,6 +1,6 @@
 ## Demo:
 
-https://darya-startsava.github.io/REACT2022Q1/react-hooks/
+https://darya-startsava.github.io/React-project-deploy/
 
 ## About:
 
